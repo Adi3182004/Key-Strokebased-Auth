@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Keystroke Auth Demo</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <style>
+      body {
+        font-family: system-ui, -apple-system, Roboto, sans-serif;
+        padding: 24px;
+        background: #f6f8fb;
+        color: #111;
+      }
+      .card {
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        max-width: 720px;
+        margin: 12px auto;
+        box-shadow: 0 6px 18px rgba(20, 30, 60, 0.08);
+      }
+      input,
+      button,
+      textarea {
+        font-size: 16px;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ddd;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .row {
+        display: flex;
+        gap: 12px;
+      }
+      .col {
+        flex: 1;
+      }
+      button {
+        cursor: pointer;
+        background: #2563eb;
+        color: white;
+        border: none;
+      }
+      small {
+        color: #555;
+      }
+      .log {
+        max-height: 200px;
+        overflow: auto;
+        background: #0f1724;
+        color: #fff;
+        padding: 8px;
+        border-radius: 8px;
+        font-family: monospace;
+        font-size: 13px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="card">
+      <h2>Keystroke Auth Demo</h2>
+      <p>
+        <strong>Passphrase (required):</strong>
+        <code id="passphrase">the quick brown fox</code>
+      </p>
+
+      <div>
+        <label>Username</label>
+        <input id="username" placeholder="alice" value="alice" />
+      </div>
+
+      <div style="margin-top: 12px">
+        <label
+          >Type the passphrase into the box below and use the buttons to enroll
+          or verify. ENROLL 5 times to train the model.</label
+        >
+        <textarea
+          id="typing-area"
+          rows="2"
+          placeholder="Type the passphrase here..."
+        ></textarea>
+        <small id="hint"
+          >Make sure you type EXACTLY the passphrase shown above. Key timing is
+          recorded.</small
+        >
+      </div>
+
+      <div style="margin-top: 12px" class="row">
+        <div class="col"><button id="enroll-btn">Enroll sample</button></div>
+        <div class="col"><button id="verify-btn">Verify sample</button></div>
+        <div class="col"><button id="train-btn">Force Train</button></div>
+      </div>
+
+      <div style="margin-top: 12px" class="row">
+        <div class="col"><button id="status-btn">Show Status</button></div>
+        <div class="col"><button id="reset-btn">Reset user data</button></div>
+        <div class="col"><button id="clear-log">Clear log</button></div>
+      </div>
+
+      <div style="margin-top: 12px">
+        <div class="log" id="log"></div>
+      </div>
+    </div>
+
+    <script>
+      const PASS = document.getElementById("passphrase").textContent.trim();
+      const textarea = document.getElementById("typing-area");
+      const logEl = document.getElementById("log");
+
+      let events = [];
+
+      textarea.addEventListener("keydown", (e) => {
+        const t = performance.now();
+        events.push({ type: "down", key: e.key, time: t });
+
+        // If Enter is pressed, trigger Enroll instead of newline
+        if (e.key === "Enter") {
+          e.preventDefault(); // stop adding a newline
+          document.getElementById("enroll-btn").click();
+        }
+      });
+
+      textarea.addEventListener("keyup", (e) => {
+        const t = performance.now();
+        events.push({ type: "up", key: e.key, time: t });
+      });
+
+      function log(msg) {
+        const now = new Date().toLocaleTimeString();
+        logEl.innerText = `[${now}] ${msg}\n` + logEl.innerText;
+      }
+
+      function buildPayload() {
+        return {
+          username: document.getElementById("username").value.trim() || "user",
+          phrase: PASS,
+          events: events,
+        };
+      }
+
+      async function postJson(path, body) {
+        const res = await fetch(path, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(body),
+        });
+        const data = await res.json();
+        return { ok: res.ok, status: res.status, data };
+      }
+
+      document.getElementById("enroll-btn").onclick = async () => {
+        if (textarea.value.trim() !== PASS) {
+          alert("Please type the exact passphrase before clicking Enroll.");
+          return;
+        }
+        const payload = buildPayload();
+        if (payload.events.length < 4) {
+          alert(
+            "Not enough key events captured. Type the full passphrase and try again."
+          );
+          return;
+        }
+        const res = await postJson("/enroll", payload);
+        if (res.ok) {
+          log(
+            `Enroll success. Samples for ${payload.username}: ${res.data.num_samples}. Trained: ${res.data.trained}`
+          );
+        } else {
+          log(`Enroll error (${res.status}): ${JSON.stringify(res.data)}`);
+        }
+        events = [];
+        textarea.value = "";
+      };
+
+      document.getElementById("verify-btn").onclick = async () => {
+        if (textarea.value.trim() !== PASS) {
+          alert("Please type the exact passphrase before clicking Verify.");
+          return;
+        }
+        const payload = buildPayload();
+        const res = await postJson("/verify", payload);
+        if (res.ok) {
+          log(
+            `Verify: genuine=${res.data.genuine} score=${res.data.score.toFixed(
+              4
+            )}`
+          );
+          alert(
+            `Result: ${
+              res.data.genuine ? "Genuine" : "Impostor"
+            } (score ${res.data.score.toFixed(4)})`
+          );
+        } else {
+          log(`Verify error (${res.status}): ${JSON.stringify(res.data)}`);
+          alert("Verify error: " + JSON.stringify(res.data));
+        }
+        events = [];
+        textarea.value = "";
+      };
+
+      document.getElementById("train-btn").onclick = async () => {
+        const username =
+          document.getElementById("username").value.trim() || "user";
+        const res = await fetch("/train", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username }),
+        });
+        const data = await res.json();
+        if (res.ok) log(`Train success. Samples: ${data.num_samples}`);
+        else log(`Train failed: ${JSON.stringify(data)}`);
+      };
+
+      document.getElementById("status-btn").onclick = async () => {
+        const username =
+          document.getElementById("username").value.trim() || "user";
+        const res = await fetch("/status/" + encodeURIComponent(username));
+        const data = await res.json();
+        log(
+          `Status for ${username}: samples=${data.num_samples}, model_trained=${data.model_trained}`
+        );
+      };
+
+      document.getElementById("reset-btn").onclick = async () => {
+        if (!confirm("Remove stored samples and model for this username?"))
+          return;
+        const username =
+          document.getElementById("username").value.trim() || "user";
+        const res = await fetch("/reset", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username }),
+        });
+        const data = await res.json();
+        if (data.success) log("Reset done.");
+      };
+
+      document.getElementById("clear-log").onclick = () => {
+        logEl.innerText = "";
+        events = [];
+        textarea.value = "";
+      };
+    </script>
+  </body>
+</html>
