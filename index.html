@@ -2,242 +2,334 @@
 <html>
   <head>
     <meta charset="utf-8" />
-    <title>Keystroke Auth Demo</title>
+    <title>Keystroke Auth</title>
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <style>
-      body {
-        font-family: system-ui, -apple-system, Roboto, sans-serif;
-        padding: 24px;
-        background: #f6f8fb;
-        color: #111;
-      }
-      .card {
-        background: white;
-        padding: 20px;
-        border-radius: 10px;
-        max-width: 720px;
-        margin: 12px auto;
-        box-shadow: 0 6px 18px rgba(20, 30, 60, 0.08);
-      }
-      input,
-      button,
-      textarea {
-        font-size: 16px;
-        padding: 10px;
-        border-radius: 8px;
-        border: 1px solid #ddd;
-        width: 100%;
+      * {
+        margin: 0;
+        padding: 0;
         box-sizing: border-box;
       }
-      .row {
+      body {
+        font-family: -apple-system, sans-serif;
+        background: radial-gradient(
+          circle at 30% 20%,
+          #667eea 0,
+          #764ba2 50%,
+          #f093fb 100%
+        );
+        min-height: 100vh;
         display: flex;
-        gap: 12px;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
       }
-      .col {
-        flex: 1;
+      .app {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
+        width: 100%;
+        max-width: 480px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
+          0 0 0 1px rgba(255, 255, 255, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+      }
+      .hero {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        padding: 40px 32px;
+        text-align: center;
+        position: relative;
+      }
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Ccircle cx='51' cy='51' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        opacity: 0.3;
+      }
+      .hero h1 {
+        color: white;
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 12px;
+        position: relative;
+        z-index: 1;
+      }
+      .phrase {
+        background: rgba(255, 255, 255, 0.2);
+        color: white;
+        padding: 16px;
+        border-radius: 12px;
+        font-family: Monaco, monospace;
+        font-size: 18px;
+        font-weight: 600;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 1;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .body {
+        padding: 32px;
+      }
+      .field {
+        margin-bottom: 24px;
+      }
+      .field label {
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 8px;
+        display: block;
+        font-size: 14px;
+      }
+      input,
+      textarea {
+        width: 100%;
+        padding: 16px;
+        border: 2px solid transparent;
+        border-radius: 16px;
+        font-size: 16px;
+        background: rgba(124, 58, 237, 0.05);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        outline: none;
+      }
+      input:focus,
+      textarea:focus {
+        border-color: #8b5cf6;
+        background: white;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.3);
+      }
+      textarea {
+        resize: none;
+        height: 64px;
+        font-family: inherit;
+      }
+      .hint {
+        font-size: 12px;
+        color: #6b7280;
+        margin-top: 8px;
+        opacity: 0.8;
+      }
+      .actions {
+        display: grid;
+        gap: 12px;
+        margin-bottom: 24px;
+      }
+      .primary {
+        grid-template-columns: 1fr 1fr;
+      }
+      .secondary {
+        grid-template-columns: repeat(3, 1fr);
       }
       button {
-        cursor: pointer;
-        background: #2563eb;
-        color: white;
+        padding: 14px;
         border: none;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        font-size: 14px;
+        position: relative;
+        overflow: hidden;
       }
-      small {
-        color: #555;
+      button::before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        transition: all 0.6s ease;
+        transform: translate(-50%, -50%);
+      }
+      button:hover::before {
+        width: 300px;
+        height: 300px;
+      }
+      .btn-primary {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        box-shadow: 0 4px 15px -3px rgba(102, 126, 234, 0.4);
+      }
+      .btn-primary:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px -3px rgba(102, 126, 234, 0.6);
+      }
+      .btn-secondary {
+        background: rgba(107, 114, 128, 0.1);
+        color: #4a5568;
+        border: 1px solid rgba(107, 114, 128, 0.2);
+      }
+      .btn-secondary:hover {
+        background: rgba(107, 114, 128, 0.15);
+        transform: translateY(-2px);
+      }
+      .btn-danger {
+        background: linear-gradient(135deg, #f093fb, #f5576c);
+        color: white;
+      }
+      .btn-danger:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 10px 25px -3px rgba(245, 87, 108, 0.4);
       }
       .log {
-        max-height: 200px;
-        overflow: auto;
-        background: #0f1724;
-        color: #fff;
-        padding: 8px;
-        border-radius: 8px;
-        font-family: monospace;
-        font-size: 13px;
+        background: linear-gradient(135deg, #1a202c, #2d3748);
+        color: #e2e8f0;
+        padding: 20px;
+        border-radius: 16px;
+        font-family: Monaco, monospace;
+        font-size: 12px;
+        line-height: 1.6;
+        max-height: 150px;
+        overflow-y: auto;
+        position: relative;
+      }
+      .log::before {
+        content: "⚡ Activity Monitor";
+        position: absolute;
+        top: -12px;
+        left: 16px;
+        background: inherit;
+        padding: 0 12px;
+        font-size: 11px;
+        font-weight: 600;
+        color: #a0aec0;
+      }
+      .log:empty::after {
+        content: "Waiting for activity...";
+        color: #4a5568;
+        font-style: italic;
       }
     </style>
   </head>
   <body>
-    <div class="card">
-      <h2>Keystroke Auth Demo</h2>
-      <p>
-        <strong>Passphrase (required):</strong>
-        <code id="passphrase">the quick brown fox</code>
-      </p>
-
-      <div>
-        <label>Username</label>
-        <input id="username" placeholder="alice" value="alice" />
+    <div class="app">
+      <div class="hero">
+        <h1>🔐 Keystroke Auth</h1>
+        <div class="phrase" id="passphrase">the quick brown fox</div>
       </div>
-
-      <div style="margin-top: 12px">
-        <label
-          >Type the passphrase into the box below and use the buttons to enroll
-          or verify. ENROLL 5 times to train the model.</label
-        >
-        <textarea
-          id="typing-area"
-          rows="2"
-          placeholder="Type the passphrase here..."
-        ></textarea>
-        <small id="hint"
-          >Make sure you type EXACTLY the passphrase shown above. Key timing is
-          recorded.</small
-        >
-      </div>
-
-      <div style="margin-top: 12px" class="row">
-        <div class="col"><button id="enroll-btn">Enroll sample</button></div>
-        <div class="col"><button id="verify-btn">Verify sample</button></div>
-        <div class="col"><button id="train-btn">Force Train</button></div>
-      </div>
-
-      <div style="margin-top: 12px" class="row">
-        <div class="col"><button id="status-btn">Show Status</button></div>
-        <div class="col"><button id="reset-btn">Reset user data</button></div>
-        <div class="col"><button id="clear-log">Clear log</button></div>
-      </div>
-
-      <div style="margin-top: 12px">
+      <div class="body">
+        <div class="field">
+          <label>👤 Username</label>
+          <input id="username" value="aditya" placeholder="Enter username" />
+        </div>
+        <div class="field">
+          <label>⌨️ Type the passphrase</label>
+          <textarea id="typing-area" placeholder="Type here..."></textarea>
+          <div class="hint">
+            Press Enter to auto-enroll • Timing patterns are captured
+          </div>
+        </div>
+        <div class="actions primary">
+          <button class="btn-primary" id="enroll-btn">Enroll Sample</button>
+          <button class="btn-primary" id="verify-btn">Verify Identity</button>
+        </div>
+        <div class="actions secondary">
+          <button class="btn-secondary" id="train-btn">Train</button>
+          <button class="btn-secondary" id="status-btn">Status</button>
+          <button class="btn-danger" id="reset-btn">Reset</button>
+        </div>
         <div class="log" id="log"></div>
       </div>
     </div>
 
     <script>
-      const PASS = document.getElementById("passphrase").textContent.trim();
-      const textarea = document.getElementById("typing-area");
-      const logEl = document.getElementById("log");
-
+      const PASS = document.getElementById("passphrase").textContent.trim(),
+        textarea = document.getElementById("typing-area"),
+        logEl = document.getElementById("log");
       let events = [];
-
       textarea.addEventListener("keydown", (e) => {
-        const t = performance.now();
-        events.push({ type: "down", key: e.key, time: t });
-
-        // If Enter is pressed, trigger Enroll instead of newline
-        if (e.key === "Enter") {
-          e.preventDefault(); // stop adding a newline
-          document.getElementById("enroll-btn").click();
-        }
+        events.push({ type: "down", key: e.key, time: performance.now() });
+        e.key === "Enter" &&
+          (e.preventDefault(), document.getElementById("enroll-btn").click());
       });
-
-      textarea.addEventListener("keyup", (e) => {
-        const t = performance.now();
-        events.push({ type: "up", key: e.key, time: t });
-      });
-
-      function log(msg) {
-        const now = new Date().toLocaleTimeString();
-        logEl.innerText = `[${now}] ${msg}\n` + logEl.innerText;
-      }
-
-      function buildPayload() {
-        return {
+      textarea.addEventListener("keyup", (e) =>
+        events.push({ type: "up", key: e.key, time: performance.now() })
+      );
+      const log = (msg) =>
+          (logEl.textContent = `[${new Date().toLocaleTimeString()}] ${msg}\n${
+            logEl.textContent
+          }`),
+        postJson = async (path, body) => {
+          const res = await fetch(path, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(body),
+          });
+          return { ok: res.ok, data: await res.json() };
+        },
+        buildPayload = () => ({
           username: document.getElementById("username").value.trim() || "user",
           phrase: PASS,
-          events: events,
-        };
-      }
-
-      async function postJson(path, body) {
-        const res = await fetch(path, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(body),
+          events,
         });
-        const data = await res.json();
-        return { ok: res.ok, status: res.status, data };
-      }
-
       document.getElementById("enroll-btn").onclick = async () => {
-        if (textarea.value.trim() !== PASS) {
-          alert("Please type the exact passphrase before clicking Enroll.");
-          return;
-        }
+        if (textarea.value.trim() !== PASS)
+          return alert("Type exact passphrase first");
         const payload = buildPayload();
-        if (payload.events.length < 4) {
-          alert(
-            "Not enough key events captured. Type the full passphrase and try again."
-          );
-          return;
-        }
+        if (payload.events.length < 4) return alert("Type full passphrase");
         const res = await postJson("/enroll", payload);
-        if (res.ok) {
-          log(
-            `Enroll success. Samples for ${payload.username}: ${res.data.num_samples}. Trained: ${res.data.trained}`
-          );
-        } else {
-          log(`Enroll error (${res.status}): ${JSON.stringify(res.data)}`);
-        }
+        log(
+          res.ok
+            ? `✅ Enrolled! Samples: ${res.data.num_samples}`
+            : `❌ Failed: ${JSON.stringify(res.data)}`
+        );
         events = [];
         textarea.value = "";
       };
-
       document.getElementById("verify-btn").onclick = async () => {
-        if (textarea.value.trim() !== PASS) {
-          alert("Please type the exact passphrase before clicking Verify.");
-          return;
-        }
-        const payload = buildPayload();
-        const res = await postJson("/verify", payload);
+        if (textarea.value.trim() !== PASS)
+          return alert("Type exact passphrase first");
+        const res = await postJson("/verify", buildPayload());
         if (res.ok) {
+          const { genuine, score } = res.data;
           log(
-            `Verify: genuine=${res.data.genuine} score=${res.data.score.toFixed(
-              4
-            )}`
+            `${genuine ? "🟢 GENUINE" : "🔴 IMPOSTOR"} (${score.toFixed(3)})`
           );
           alert(
-            `Result: ${
-              res.data.genuine ? "Genuine" : "Impostor"
-            } (score ${res.data.score.toFixed(4)})`
+            `${
+              genuine ? "✅ Authenticated" : "❌ Authentication Failed"
+            }\nScore: ${score.toFixed(3)}`
           );
-        } else {
-          log(`Verify error (${res.status}): ${JSON.stringify(res.data)}`);
-          alert("Verify error: " + JSON.stringify(res.data));
-        }
+        } else log(`❌ Error: ${JSON.stringify(res.data)}`);
         events = [];
         textarea.value = "";
       };
-
       document.getElementById("train-btn").onclick = async () => {
-        const username =
-          document.getElementById("username").value.trim() || "user";
-        const res = await fetch("/train", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username }),
+        const res = await postJson("/train", {
+          username: document.getElementById("username").value.trim() || "user",
         });
-        const data = await res.json();
-        if (res.ok) log(`Train success. Samples: ${data.num_samples}`);
-        else log(`Train failed: ${JSON.stringify(data)}`);
-      };
-
-      document.getElementById("status-btn").onclick = async () => {
-        const username =
-          document.getElementById("username").value.trim() || "user";
-        const res = await fetch("/status/" + encodeURIComponent(username));
-        const data = await res.json();
         log(
-          `Status for ${username}: samples=${data.num_samples}, model_trained=${data.model_trained}`
+          res.ok ? `🎯 Trained! Samples: ${res.data.num_samples}` : `❌ Failed`
         );
       };
-
-      document.getElementById("reset-btn").onclick = async () => {
-        if (!confirm("Remove stored samples and model for this username?"))
-          return;
-        const username =
-          document.getElementById("username").value.trim() || "user";
-        const res = await fetch("/reset", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ username }),
-        });
+      document.getElementById("status-btn").onclick = async () => {
+        const res = await fetch(
+          "/status/" +
+            encodeURIComponent(
+              document.getElementById("username").value.trim() || "user"
+            )
+        );
         const data = await res.json();
-        if (data.success) log("Reset done.");
+        log(
+          `📊 ${data.num_samples} samples, ${
+            data.model_trained ? "trained" : "not trained"
+          }`
+        );
       };
-
-      document.getElementById("clear-log").onclick = () => {
-        logEl.innerText = "";
+      document.getElementById("reset-btn").onclick = async () => {
+        if (!confirm("Delete all data?")) return;
+        const res = await postJson("/reset", {
+          username: document.getElementById("username").value.trim() || "user",
+        });
+        res.data.success &&
+          (log("🗑️ Reset complete"), (logEl.textContent = ""));
         events = [];
         textarea.value = "";
       };
