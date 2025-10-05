@@ -1,338 +1,2088 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <meta charset="utf-8" />
-    <title>Keystroke Auth</title>
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SecureBank - Advanced Biometric Banking</title>
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://image2url.com/images/1759310178901-4bdd2e88-eed7-471f-a537-8264c9e17d26.jpeg"
+    />
     <style>
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
+
       body {
-        font-family: -apple-system, sans-serif;
-        background: radial-gradient(
-          circle at 30% 20%,
-          #667eea 0,
-          #764ba2 50%,
-          #f093fb 100%
-        );
+        font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
+          sans-serif;
+        background: #f5f7fa;
         min-height: 100vh;
+      }
+
+      /* Header */
+      .top-header {
+        background: #ffffff;
+        padding: 16px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        border-bottom: 2px solid #3b82f6;
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 24px;
+        font-weight: 700;
+        color: #1e293b;
+      }
+
+      .logo-icon {
+        width: 40px;
+        height: 40px;
+        background: #3b82f6;
+        border-radius: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 20px;
+        color: white;
+        font-size: 20px;
       }
-      .app {
-        background: rgba(255, 255, 255, 0.95);
-        backdrop-filter: blur(20px);
-        border-radius: 24px;
+
+      .header-actions {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+      }
+
+      .train-btn {
+        background: #f59e0b;
+        color: white;
+        border: none;
+        padding: 10px 24px;
+        border-radius: 6px;
+        font-weight: 600;
+        cursor: pointer;
+        font-size: 14px;
+        transition: all 0.2s;
+        box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
+      }
+
+      .train-btn:hover {
+        background: #d97706;
+        transform: translateY(-1px);
+      }
+
+      .user-info {
+        display: none;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 16px;
+        background: #f1f5f9;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .user-info.active {
+        display: flex;
+      }
+
+      /* Container */
+      .container {
+        max-width: 1200px;
+        margin: 40px auto;
+        padding: 0 20px;
+      }
+
+      .card {
+        background: white;
+        border-radius: 8px;
+        padding: 32px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        margin-bottom: 24px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .screen {
+        display: none;
+      }
+
+      .screen.active {
+        display: block;
+      }
+
+      /* Auth */
+      .auth-container {
+        max-width: 450px;
+        margin: 60px auto;
+      }
+
+      .auth-tabs {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+
+      .tab-btn {
+        flex: 1;
+        padding: 14px;
+        border: 2px solid #e2e8f0;
+        background: white;
+        color: #64748b;
+        font-weight: 600;
+        cursor: pointer;
+        border-radius: 6px;
+        transition: all 0.2s;
+      }
+
+      .tab-btn.active {
+        background: #3b82f6;
+        color: white;
+        border-color: #3b82f6;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        color: #1e293b;
+        font-weight: 600;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      .form-group input,
+      .form-group textarea {
         width: 100%;
-        max-width: 480px;
-        overflow: hidden;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25),
-          0 0 0 1px rgba(255, 255, 255, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 12px 14px;
+        border: 2px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 15px;
+        transition: all 0.2s;
+        outline: none;
+        font-family: inherit;
+        background: white;
       }
-      .hero {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        padding: 40px 32px;
-        text-align: center;
-        position: relative;
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
       }
-      .hero::before {
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+        line-height: 1.6;
+      }
+
+      .hint {
+        font-size: 12px;
+        color: #64748b;
+        margin-top: 6px;
+      }
+
+      .btn {
+        width: 100%;
+        padding: 14px;
+        border: none;
+        border-radius: 6px;
+        font-size: 15px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s;
+        margin-top: 12px;
+      }
+
+      .btn-primary {
+        background: #3b82f6;
+        color: white;
+        box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
+      }
+
+      .btn-primary:hover:not(:disabled) {
+        background: #2563eb;
+        transform: translateY(-1px);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      .btn-secondary {
+        background: #f8fafc;
+        color: #475569;
+        border: 2px solid #e2e8f0;
+      }
+
+      .btn-secondary:hover {
+        background: #f1f5f9;
+      }
+
+      .btn-success {
+        background: #10b981;
+        color: white;
+      }
+
+      .btn-success:hover {
+        background: #059669;
+      }
+
+      /* Alert */
+      .alert {
+        padding: 14px 18px;
+        border-radius: 6px;
+        margin: 16px 0;
+        font-size: 14px;
+        display: none;
+        border-left: 4px solid;
+      }
+
+      .alert.show {
+        display: block;
+      }
+
+      .alert-success {
+        background: #d1fae5;
+        color: #065f46;
+        border-color: #10b981;
+      }
+
+      .alert-error {
+        background: #fee2e2;
+        color: #991b1b;
+        border-color: #ef4444;
+      }
+
+      .alert-info {
+        background: #dbeafe;
+        color: #1e40af;
+        border-color: #3b82f6;
+      }
+
+      /* Professional Corporate Security Alarm */
+      .security-alarm {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 99999;
+        background: #1e293b;
+      }
+
+      .security-alarm.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .security-alarm::before {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        bottom: 0;
-        background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='9' cy='9' r='2'/%3E%3Ccircle cx='51' cy='51' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-        opacity: 0.3;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          #dc2626 0%,
+          #dc2626 50%,
+          transparent 50%,
+          transparent 100%
+        );
+        background-size: 40px 4px;
+        animation: barberPole 1s linear infinite;
       }
-      .hero h1 {
-        color: white;
-        font-size: 28px;
-        font-weight: 700;
-        margin-bottom: 12px;
-        position: relative;
-        z-index: 1;
+
+      @keyframes barberPole {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 40px 0;
+        }
       }
-      .phrase {
-        background: rgba(255, 255, 255, 0.2);
-        color: white;
-        padding: 16px;
-        border-radius: 12px;
-        font-family: Monaco, monospace;
-        font-size: 18px;
-        font-weight: 600;
-        letter-spacing: 1px;
-        position: relative;
-        z-index: 1;
-        border: 1px solid rgba(255, 255, 255, 0.3);
-      }
-      .body {
-        padding: 32px;
-      }
-      .field {
-        margin-bottom: 24px;
-      }
-      .field label {
-        font-weight: 600;
-        color: #4a5568;
-        margin-bottom: 8px;
-        display: block;
-        font-size: 14px;
-      }
-      input,
-      textarea {
+
+      .alarm-container {
         width: 100%;
-        padding: 16px;
-        border: 2px solid transparent;
-        border-radius: 16px;
-        font-size: 16px;
-        background: rgba(124, 58, 237, 0.05);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        outline: none;
+        max-width: 900px;
+        margin: 0 20px;
       }
-      input:focus,
-      textarea:focus {
-        border-color: #8b5cf6;
-        background: white;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 25px -5px rgba(139, 92, 246, 0.3);
+
+      .alarm-panel {
+        background: #ffffff;
+        border-radius: 0;
+        border: 3px solid #dc2626;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
       }
-      textarea {
-        resize: none;
-        height: 64px;
-        font-family: inherit;
+
+      .alarm-header {
+        background: #dc2626;
+        padding: 24px 40px;
+        border-bottom: 3px solid #991b1b;
       }
-      .hint {
+
+      .alarm-status-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+
+      .alarm-badge {
+        background: #ffffff;
+        color: #dc2626;
+        padding: 6px 16px;
         font-size: 12px;
-        color: #6b7280;
-        margin-top: 8px;
-        opacity: 0.8;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 2px;
       }
-      .actions {
+
+      .alarm-live {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .alarm-live-dot {
+        width: 8px;
+        height: 8px;
+        background: #ffffff;
+        border-radius: 50%;
+        animation: pulse 1s ease-in-out infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+
+      .alarm-title-section {
+        text-align: left;
+      }
+
+      .alarm-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+
+      .alarm-subtitle {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 500;
+      }
+
+      .alarm-body {
+        padding: 40px;
+      }
+
+      .alarm-threat-level {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px;
+        background: #fef2f2;
+        border-left: 4px solid #dc2626;
+        margin-bottom: 32px;
+      }
+
+      .threat-icon {
+        width: 48px;
+        height: 48px;
+        background: #dc2626;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        flex-shrink: 0;
+      }
+
+      .threat-content h3 {
+        font-size: 14px;
+        color: #991b1b;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+      }
+
+      .threat-content p {
+        font-size: 13px;
+        color: #7f1d1d;
+        margin: 0;
+      }
+
+      .alarm-grid {
         display: grid;
-        gap: 12px;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 32px;
+      }
+
+      .alarm-info-box {
+        background: #f8fafc;
+        padding: 20px;
+        border: 1px solid #e2e8f0;
+      }
+
+      .alarm-info-label {
+        font-size: 11px;
+        color: #64748b;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 8px;
+      }
+
+      .alarm-info-value {
+        font-size: 18px;
+        color: #1e293b;
+        font-weight: 700;
+        font-family: "Courier New", monospace;
+      }
+
+      .alarm-description {
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        padding: 24px;
+        margin-bottom: 32px;
+      }
+
+      .alarm-description h4 {
+        font-size: 13px;
+        color: #92400e;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+      }
+
+      .alarm-description p {
+        font-size: 14px;
+        color: #78350f;
+        line-height: 1.6;
+        margin: 0;
+      }
+
+      .alarm-actions {
+        display: flex;
+        gap: 16px;
+      }
+
+      .alarm-btn {
+        flex: 1;
+        padding: 16px 24px;
+        border: none;
+        font-size: 14px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .alarm-btn-primary {
+        background: #dc2626;
+        color: white;
+      }
+
+      .alarm-btn-primary:hover {
+        background: #991b1b;
+      }
+
+      .alarm-btn-secondary {
+        background: #f1f5f9;
+        color: #475569;
+        border: 2px solid #cbd5e1;
+      }
+
+      .alarm-btn-secondary:hover {
+        background: #e2e8f0;
+      }
+
+      .alarm-footer {
+        background: #f8fafc;
+        padding: 16px 40px;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .alarm-timestamp {
+        font-size: 12px;
+        color: #64748b;
+        font-family: "Courier New", monospace;
+      }
+
+      .alarm-id {
+        font-size: 12px;
+        color: #64748b;
+        font-family: "Courier New", monospace;
+        font-weight: 600;
+      }
+
+      /* Dashboard */
+      .balance-card {
+        background: #1e40af;
+        color: white;
+        padding: 32px;
+        border-radius: 8px;
         margin-bottom: 24px;
       }
-      .primary {
-        grid-template-columns: 1fr 1fr;
-      }
-      .secondary {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      button {
-        padding: 14px;
-        border: none;
-        border-radius: 12px;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+      .balance-label {
         font-size: 14px;
-        position: relative;
+        opacity: 0.9;
+        margin-bottom: 8px;
+      }
+
+      .balance-amount {
+        font-size: 42px;
+        font-weight: 700;
+        margin-bottom: 16px;
+      }
+
+      .account-number {
+        font-size: 13px;
+        opacity: 0.8;
+        font-family: "Courier New", monospace;
+      }
+
+      .quick-actions {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        margin: 24px 0;
+      }
+
+      .action-card {
+        background: white;
+        border: 2px solid #e2e8f0;
+        border-radius: 8px;
+        padding: 24px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.2s;
+      }
+
+      .action-card:hover {
+        border-color: #3b82f6;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+      }
+
+      .action-icon {
+        font-size: 36px;
+        margin-bottom: 12px;
+      }
+
+      .action-label {
+        font-weight: 600;
+        color: #1e293b;
+        font-size: 15px;
+      }
+
+      /* Transaction Success Screen */
+      .success-screen {
+        text-align: center;
+        padding: 60px 40px;
+      }
+
+      .success-check {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #10b981;
+        margin: 0 auto 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: scaleIn 0.5s ease;
+      }
+
+      @keyframes scaleIn {
+        0% {
+          transform: scale(0);
+        }
+        50% {
+          transform: scale(1.1);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .success-check-icon {
+        font-size: 64px;
+        color: white;
+      }
+
+      .success-title {
+        font-size: 36px;
+        font-weight: 700;
+        color: #10b981;
+        margin-bottom: 16px;
+      }
+
+      .success-subtitle {
+        font-size: 18px;
+        color: #64748b;
+        margin-bottom: 40px;
+      }
+
+      .transaction-details {
+        background: #f8fafc;
+        border-radius: 8px;
+        padding: 32px;
+        margin: 32px 0;
+        text-align: left;
+      }
+
+      .detail-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 16px 0;
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .detail-row:last-child {
+        border-bottom: none;
+      }
+
+      .detail-label {
+        color: #64748b;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .detail-value {
+        color: #1e293b;
+        font-size: 14px;
+        font-weight: 600;
+      }
+
+      .transaction-id {
+        background: #eff6ff;
+        padding: 16px;
+        border-radius: 6px;
+        margin: 24px 0;
+        font-family: "Courier New", monospace;
+        font-size: 16px;
+        color: #1e40af;
+        font-weight: 600;
+      }
+
+      .action-buttons {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+        margin-top: 32px;
+      }
+
+      .btn-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+      }
+
+      /* Progress */
+      .progress-container {
+        margin: 20px 0;
+      }
+
+      .progress-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 8px;
+      }
+
+      .progress-label {
+        font-weight: 600;
+        color: #1e293b;
+        font-size: 14px;
+      }
+
+      .progress-bar {
+        height: 10px;
+        background: #e2e8f0;
+        border-radius: 10px;
         overflow: hidden;
       }
-      button::before {
-        content: "";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        background: rgba(255, 255, 255, 0.3);
-        border-radius: 50%;
-        transition: all 0.6s ease;
-        transform: translate(-50%, -50%);
+
+      .progress-fill {
+        height: 100%;
+        background: #3b82f6;
+        border-radius: 10px;
+        transition: width 0.4s ease;
       }
-      button:hover::before {
-        width: 300px;
-        height: 300px;
-      }
-      .btn-primary {
-        background: linear-gradient(135deg, #667eea, #764ba2);
-        color: white;
-        box-shadow: 0 4px 15px -3px rgba(102, 126, 234, 0.4);
-      }
-      .btn-primary:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px -3px rgba(102, 126, 234, 0.6);
-      }
-      .btn-secondary {
-        background: rgba(107, 114, 128, 0.1);
-        color: #4a5568;
-        border: 1px solid rgba(107, 114, 128, 0.2);
-      }
-      .btn-secondary:hover {
-        background: rgba(107, 114, 128, 0.15);
-        transform: translateY(-2px);
-      }
-      .btn-danger {
-        background: linear-gradient(135deg, #f093fb, #f5576c);
-        color: white;
-      }
-      .btn-danger:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 10px 25px -3px rgba(245, 87, 108, 0.4);
-      }
-      .log {
-        background: linear-gradient(135deg, #1a202c, #2d3748);
-        color: #e2e8f0;
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0, 0, 0, 0.5);
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
         padding: 20px;
-        border-radius: 16px;
-        font-family: Monaco, monospace;
-        font-size: 12px;
-        line-height: 1.6;
-        max-height: 150px;
+      }
+
+      .modal.active {
+        display: flex;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 8px;
+        padding: 32px;
+        max-width: 500px;
+        width: 100%;
+        max-height: 90vh;
         overflow-y: auto;
-        position: relative;
+        box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
       }
-      .log::before {
-        content: "⚡ Activity Monitor";
-        position: absolute;
-        top: -12px;
-        left: 16px;
-        background: inherit;
-        padding: 0 12px;
-        font-size: 11px;
+
+      .modal-header {
+        font-size: 22px;
+        font-weight: 700;
+        color: #1e293b;
+        margin-bottom: 20px;
+      }
+
+      .info-banner {
+        background: #eff6ff;
+        padding: 20px;
+        border-radius: 6px;
+        margin-bottom: 24px;
+        border-left: 4px solid #3b82f6;
+      }
+
+      .info-banner h3 {
+        color: #1e293b;
+        margin-bottom: 8px;
+        font-size: 16px;
+      }
+
+      .info-banner p {
+        color: #475569;
+        font-size: 13px;
+        line-height: 1.6;
+      }
+
+      .paragraph-box {
+        background: #f8fafc;
+        padding: 16px;
+        border-radius: 6px;
+        border: 1px solid #e2e8f0;
+        margin-bottom: 16px;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #1e293b;
+      }
+
+      .logout-btn {
+        background: transparent;
+        border: 2px solid #e2e8f0;
+        color: #64748b;
+        padding: 8px 20px;
+        border-radius: 6px;
+        cursor: pointer;
         font-weight: 600;
-        color: #a0aec0;
+        transition: all 0.2s;
       }
-      .log:empty::after {
-        content: "Waiting for activity...";
-        color: #4a5568;
-        font-style: italic;
+
+      .logout-btn:hover {
+        border-color: #ef4444;
+        color: #ef4444;
+      }
+
+      /* Training Success Modal */
+      .success-modal {
+        text-align: center;
+      }
+
+      .success-icon {
+        font-size: 80px;
+        margin-bottom: 20px;
+      }
+
+      .success-modal-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #10b981;
+        margin-bottom: 12px;
+      }
+
+      .success-message {
+        font-size: 16px;
+        color: #475569;
+        margin-bottom: 32px;
+        line-height: 1.6;
+      }
+
+      .btn-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .alarm-panel {
+          border: 2px solid #dc2626;
+        }
+
+        .alarm-header {
+          padding: 20px 24px;
+        }
+
+        .alarm-body {
+          padding: 24px;
+        }
+
+        .alarm-title {
+          font-size: 24px;
+        }
+
+        .alarm-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .alarm-actions {
+          flex-direction: column;
+        }
+
+        .success-title {
+          font-size: 28px;
+        }
+
+        .action-buttons {
+          grid-template-columns: 1fr;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="app">
-      <div class="hero">
-        <h1>🔐 Keystroke Auth</h1>
-        <div class="phrase" id="passphrase">the quick brown fox</div>
-      </div>
-      <div class="body">
-        <div class="field">
-          <label>👤 Username</label>
-          <input id="username" value="aditya" placeholder="Enter username" />
-        </div>
-        <div class="field">
-          <label>⌨️ Type the passphrase</label>
-          <textarea id="typing-area" placeholder="Type here..."></textarea>
-          <div class="hint">
-            Press Enter to auto-enroll • Timing patterns are captured
+    <!-- Professional Corporate Security Alarm -->
+    <div id="securityAlarm" class="security-alarm">
+      <div class="alarm-container">
+        <div class="alarm-panel">
+          <div class="alarm-header">
+            <div class="alarm-status-bar">
+              <div class="alarm-badge">CRITICAL SECURITY ALERT</div>
+              <div class="alarm-live">
+                <div class="alarm-live-dot"></div>
+                LIVE INCIDENT
+              </div>
+            </div>
+            <div class="alarm-title-section">
+              <h1 class="alarm-title">Unauthorized Access Detected</h1>
+              <p class="alarm-subtitle">
+                Biometric Authentication Failure - Account Access Blocked
+              </p>
+            </div>
+          </div>
+
+          <div class="alarm-body">
+            <div class="alarm-threat-level">
+              <div class="threat-icon">⚠</div>
+              <div class="threat-content">
+                <h3>Threat Level: High</h3>
+                <p>
+                  Keystroke pattern analysis indicates potential unauthorized
+                  access attempt
+                </p>
+              </div>
+            </div>
+
+            <div class="alarm-grid">
+              <div class="alarm-info-box">
+                <div class="alarm-info-label">Detection Method</div>
+                <div class="alarm-info-value">Keystroke Biometrics</div>
+              </div>
+              <div class="alarm-info-box">
+                <div class="alarm-info-label">Anomaly Type</div>
+                <div class="alarm-info-value" id="alarmAnomalyType">
+                  SLOW TYPING
+                </div>
+              </div>
+              <div class="alarm-info-box">
+                <div class="alarm-info-label">Speed Deviation</div>
+                <div
+                  class="alarm-info-value"
+                  id="alarmDeviation"
+                  style="color: #dc2626"
+                >
+                  -
+                </div>
+              </div>
+              <div class="alarm-info-box">
+                <div class="alarm-info-label">Status</div>
+                <div class="alarm-info-value" style="color: #dc2626">
+                  BLOCKED
+                </div>
+              </div>
+            </div>
+
+            <div class="alarm-description">
+              <h4>Incident Report</h4>
+              <p id="alarmMessageText">
+                An unauthorized access attempt has been detected and blocked.
+                The typing pattern analysis shows significant deviation from
+                registered biometric signature. The transaction has been
+                terminated and this incident has been logged for security
+                review.
+              </p>
+            </div>
+
+            <div class="alarm-actions">
+              <button class="alarm-btn alarm-btn-primary" id="stopAlarmBtn">
+                Acknowledge & Dismiss
+              </button>
+              <button
+                class="alarm-btn alarm-btn-secondary"
+                onclick="window.location.reload()"
+              >
+                Return to Login
+              </button>
+            </div>
+          </div>
+
+          <div class="alarm-footer">
+            <div class="alarm-timestamp" id="alarmTimestamp">-</div>
+            <div class="alarm-id" id="alarmId">-</div>
           </div>
         </div>
-        <div class="actions primary">
-          <button class="btn-primary" id="enroll-btn">Enroll Sample</button>
-          <button class="btn-primary" id="verify-btn">Verify Identity</button>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <div class="top-header">
+      <div class="logo">
+        <div class="logo-icon">🏦</div>
+        <span>SecureBank</span>
+      </div>
+      <div class="header-actions">
+        <button class="train-btn" id="trainModelBtn">
+          ⚡ Train Biometric Model
+        </button>
+        <div class="user-info" id="userInfo">
+          <span>👤 <strong id="displayUsername"></strong></span>
+          <button class="logout-btn" id="logoutBtn">Logout</button>
         </div>
-        <div class="actions secondary">
-          <button class="btn-secondary" id="train-btn">Train</button>
-          <button class="btn-secondary" id="status-btn">Status</button>
-          <button class="btn-danger" id="reset-btn">Reset</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <!-- Login/Register Screen -->
+      <div id="authScreen" class="screen active">
+        <div class="auth-container card">
+          <div class="auth-tabs">
+            <button class="tab-btn active" data-tab="login">Login</button>
+            <button class="tab-btn" data-tab="register">Register</button>
+          </div>
+
+          <!-- Login Tab -->
+          <div id="loginTab" class="tab-content active">
+            <h2 style="margin-bottom: 20px; color: #1e293b">Welcome Back</h2>
+            <div id="loginAlert" class="alert"></div>
+            <form id="loginForm">
+              <div class="form-group">
+                <label>Username</label>
+                <input
+                  type="text"
+                  id="loginUsername"
+                  placeholder="Enter your username"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  id="loginPassword"
+                  placeholder="Enter your password"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Login to Account
+              </button>
+            </form>
+          </div>
+
+          <!-- Register Tab -->
+          <div id="registerTab" class="tab-content" style="display: none">
+            <h2 style="margin-bottom: 20px; color: #1e293b">Create Account</h2>
+            <div id="registerAlert" class="alert"></div>
+            <form id="registerForm">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input
+                  type="text"
+                  id="registerName"
+                  placeholder="Enter your full name"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Username</label>
+                <input
+                  type="text"
+                  id="registerUsername"
+                  placeholder="Choose a username"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  id="registerEmail"
+                  placeholder="your.email@example.com"
+                  required
+                />
+              </div>
+              <div class="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  id="registerPassword"
+                  placeholder="Create a strong password"
+                  required
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Create Account
+              </button>
+            </form>
+          </div>
         </div>
-        <div class="log" id="log"></div>
+      </div>
+
+      <!-- Dashboard Screen -->
+      <div id="dashboardScreen" class="screen">
+        <div class="balance-card">
+          <div class="balance-label">Available Balance</div>
+          <div class="balance-amount">$24,582.50</div>
+          <div class="account-number">**** **** **** 7294</div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 20px; color: #1e293b">Quick Actions</h3>
+          <div class="quick-actions">
+            <div class="action-card" id="transferBtn">
+              <div class="action-icon">💸</div>
+              <div class="action-label">Transfer Money</div>
+            </div>
+            <div class="action-card" id="payBillBtn">
+              <div class="action-icon">💳</div>
+              <div class="action-label">Pay Bills</div>
+            </div>
+            <div class="action-card" id="depositBtn">
+              <div class="action-icon">💰</div>
+              <div class="action-label">Deposit</div>
+            </div>
+            <div class="action-card" id="historyBtn">
+              <div class="action-icon">📊</div>
+              <div class="action-label">Transaction History</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3 style="margin-bottom: 16px; color: #1e293b">Security Status</h3>
+          <div id="securityStatus">
+            <div class="alert alert-info show">
+              ⚠️ <strong>Biometric Authentication Not Trained</strong><br />
+              Click "Train Biometric Model" to enable security.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Transaction Success Screen -->
+      <div id="successScreen" class="screen">
+        <div class="card">
+          <div class="success-screen">
+            <div class="success-check">
+              <div class="success-check-icon">✓</div>
+            </div>
+            <h1 class="success-title">Transaction Successful!</h1>
+            <p class="success-subtitle">
+              Your payment has been processed successfully
+            </p>
+
+            <div class="transaction-details">
+              <div class="detail-row">
+                <span class="detail-label">Recipient</span>
+                <span class="detail-value" id="successRecipient">-</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Amount</span>
+                <span class="detail-value" id="successAmount">-</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Date & Time</span>
+                <span class="detail-value" id="successDateTime">-</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Status</span>
+                <span class="detail-value" style="color: #10b981"
+                  >✓ Completed</span
+                >
+              </div>
+            </div>
+
+            <div class="transaction-id">
+              Transaction ID: <span id="successTransactionId">-</span>
+            </div>
+
+            <div class="action-buttons">
+              <button class="btn btn-primary btn-icon" id="shareBtn">
+                📤 Share Receipt
+              </button>
+              <button class="btn btn-secondary btn-icon" id="goBackBtn">
+                ← Go Back
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Training Modal -->
+    <div id="trainingModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">⚡ Biometric Training</div>
+        <div id="trainingAlert" class="alert"></div>
+
+        <!-- Step 1: Paragraphs -->
+        <div id="trainingStep1" class="training-step">
+          <div class="info-banner">
+            <h3>🔐 Step 1: Type Two Paragraphs</h3>
+            <p>
+              Type naturally. Press <strong>Enter</strong> after each paragraph.
+            </p>
+          </div>
+
+          <div class="paragraph-box">
+            The quick brown fox jumps over the lazy dog while the sun sets
+            behind the mountains.
+          </div>
+          <div class="form-group">
+            <label>Type Paragraph 1</label>
+            <textarea
+              id="paragraph1Input"
+              placeholder="Type the paragraph above..."
+            ></textarea>
+            <div class="hint">✅ Press Enter to submit</div>
+          </div>
+
+          <div class="paragraph-box">
+            Security and privacy are fundamental rights in our digital age and
+            must be protected carefully.
+          </div>
+          <div class="form-group">
+            <label>Type Paragraph 2</label>
+            <textarea
+              id="paragraph2Input"
+              placeholder="Type the paragraph above..."
+            ></textarea>
+            <div class="hint">✅ Press Enter to submit</div>
+          </div>
+
+          <button class="btn btn-primary" id="submitParagraphsBtn">
+            Next: Set Password
+          </button>
+          <button class="btn btn-secondary" id="cancelTrainingBtn">
+            Cancel
+          </button>
+        </div>
+
+        <!-- Step 2: Password Setup -->
+        <div id="trainingStep2" class="training-step" style="display: none">
+          <div class="info-banner">
+            <h3>🔑 Step 2: Create Your Password</h3>
+            <p>
+              Type your password
+              <strong><span id="requiredSamples">5</span></strong> times. Press
+              <strong>Enter</strong> after each.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label>Create Password</label>
+            <input
+              type="password"
+              id="trainingPasswordSetup"
+              placeholder="Enter your secure password"
+            />
+          </div>
+
+          <div class="form-group">
+            <label
+              >Type Password (Sample <span id="currentSample">1</span>/<span
+                id="totalSamples"
+                >5</span
+              >)</label
+            >
+            <input
+              type="password"
+              id="trainingPasswordInput"
+              placeholder="Type your password here..."
+            />
+            <div class="hint">🔒 Press Enter to capture</div>
+          </div>
+
+          <div class="progress-container">
+            <div class="progress-header">
+              <span class="progress-label">Training Progress</span>
+              <span class="progress-label" id="progressCount"
+                >0/<span id="progressTotal">5</span></span
+              >
+            </div>
+            <div class="progress-bar">
+              <div
+                class="progress-fill"
+                id="progressFill"
+                style="width: 0%"
+              ></div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary" id="capturePasswordSampleBtn">
+            Capture Sample
+          </button>
+          <button
+            class="btn btn-success"
+            id="completeTrainingBtn"
+            style="display: none"
+          >
+            Complete Training
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Training Success Modal -->
+    <div id="trainingSuccessModal" class="modal">
+      <div class="modal-content success-modal">
+        <div class="success-icon">🎉</div>
+        <div class="success-modal-title">Training Complete!</div>
+        <div class="success-message">
+          Your biometric model has been successfully trained with
+          <strong id="trainedSamplesCount">5</strong> samples.<br />
+          Your account is now secured with keystroke authentication.
+        </div>
+        <div class="btn-grid">
+          <button class="btn btn-success" id="continueBtn">Continue</button>
+          <button class="btn btn-primary" id="trainMoreBtn">Train More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Transaction Modal -->
+    <div id="transactionModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">💸 Authorize Transaction</div>
+        <div id="transactionAlert" class="alert"></div>
+
+        <div class="form-group">
+          <label>Transfer To</label>
+          <input
+            type="text"
+            id="transferTo"
+            value="Aditya Andhalkar - Account ****1234"
+            readonly
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Amount</label>
+          <input type="text" id="transferAmount" value="$500.00" readonly />
+        </div>
+
+        <div class="info-banner">
+          <h3>🔒 Biometric Authentication Required</h3>
+          <p>
+            Type your password normally. Press <strong>Enter</strong> to
+            authorize.
+          </p>
+        </div>
+
+        <form id="transactionForm">
+          <div class="form-group">
+            <label>Enter Password to Authorize</label>
+            <input
+              type="password"
+              id="transactionPasswordInput"
+              placeholder="Type your password..."
+            />
+            <div class="hint">⌨️ Type naturally - biometrics active</div>
+          </div>
+          <button type="submit" class="btn btn-success">
+            Authorize & Transfer
+          </button>
+        </form>
+        <button class="btn btn-secondary" id="cancelTransactionBtn">
+          Cancel
+        </button>
       </div>
     </div>
 
     <script>
-      const PASS = document.getElementById("passphrase").textContent.trim(),
-        textarea = document.getElementById("typing-area"),
-        logEl = document.getElementById("log");
-      let events = [];
-      textarea.addEventListener("keydown", (e) => {
-        events.push({ type: "down", key: e.key, time: performance.now() });
-        e.key === "Enter" &&
-          (e.preventDefault(), document.getElementById("enroll-btn").click());
-      });
-      textarea.addEventListener("keyup", (e) =>
-        events.push({ type: "up", key: e.key, time: performance.now() })
-      );
-      const log = (msg) =>
-          (logEl.textContent = `[${new Date().toLocaleTimeString()}] ${msg}\n${
-            logEl.textContent
-          }`),
-        postJson = async (path, body) => {
-          const res = await fetch(path, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(body),
+      const API_URL = "http://127.0.0.1:5000";
+
+      const PARAGRAPH1 =
+        "The quick brown fox jumps over the lazy dog while the sun sets behind the mountains.";
+      const PARAGRAPH2 =
+        "Security and privacy are fundamental rights in our digital age and must be protected carefully.";
+
+      let currentUser = null;
+      let trainingData = {
+        paragraph1Events: [],
+        paragraph2Events: [],
+        passwordSamples: [],
+      };
+      let passwordSampleCount = 0;
+      let requiredSamples = 5;
+      let currentTransaction = {};
+
+      // Alarm System Variables
+      let alarmInterval = null;
+      let speechInterval = null;
+      let audioContext = null;
+      let bellOscillator = null;
+      let bellGain = null;
+
+      // Initialize Web Audio for Bell Sound
+      function initializeBellSound() {
+        try {
+          audioContext = new (window.AudioContext ||
+            window.webkitAudioContext)();
+          return true;
+        } catch (e) {
+          console.log("Web Audio API not supported");
+          return false;
+        }
+      }
+
+      // Create Professional Bell Ringing Sound
+      function playBellSound() {
+        if (!audioContext) {
+          if (!initializeBellSound()) return;
+        }
+
+        stopBellSound();
+
+        bellOscillator = audioContext.createOscillator();
+        bellGain = audioContext.createGain();
+
+        bellOscillator.frequency.value = 659.25;
+        bellOscillator.type = "sine";
+
+        bellOscillator.connect(bellGain);
+        bellGain.connect(audioContext.destination);
+
+        const now = audioContext.currentTime;
+        bellGain.gain.setValueAtTime(0.3, now);
+        bellGain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+
+        bellOscillator.start(now);
+        bellOscillator.stop(now + 0.5);
+
+        alarmInterval = setTimeout(playBellSound, 600);
+      }
+
+      function stopBellSound() {
+        if (alarmInterval) {
+          clearTimeout(alarmInterval);
+          alarmInterval = null;
+        }
+        if (bellOscillator) {
+          try {
+            bellOscillator.stop();
+          } catch (e) {}
+          bellOscillator = null;
+        }
+      }
+
+      // Voice Alert System
+      function playVoiceAlert() {
+        if (!window.speechSynthesis) return;
+
+        function speak() {
+          window.speechSynthesis.cancel();
+
+          const utterance = new SpeechSynthesisUtterance(
+            "Alert! Alert! Security breach detected! Unauthorized access attempt identified!"
+          );
+          utterance.rate = 1.2;
+          utterance.pitch = 1.5;
+          utterance.volume = 1.0;
+          utterance.lang = "en-US";
+
+          window.speechSynthesis.speak(utterance);
+        }
+
+        speak();
+        speechInterval = setInterval(speak, 6000);
+      }
+
+      function stopVoiceAlert() {
+        if (speechInterval) {
+          clearInterval(speechInterval);
+          speechInterval = null;
+        }
+        if (window.speechSynthesis) {
+          window.speechSynthesis.cancel();
+        }
+      }
+
+      // Professional Security Alarm
+      function triggerSecurityAlarm(data) {
+        const alarm = document.getElementById("securityAlarm");
+
+        document.getElementById(
+          "alarmDeviation"
+        ).textContent = `${data.speed_deviation}% SLOWER`;
+        document.getElementById("alarmMessageText").innerHTML = `
+                An unauthorized access attempt has been detected and automatically blocked by our biometric security system. 
+                Analysis shows the typing speed was ${data.speed_deviation}% slower than your registered baseline 
+                (Current: ${data.auth_speed} chars/sec | Expected: ${data.training_speed} chars/sec). 
+                This transaction has been terminated and logged for security review. 
+                If you did not attempt this transaction, please contact our security team immediately.
+            `;
+
+        const now = new Date();
+        document.getElementById(
+          "alarmTimestamp"
+        ).textContent = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+        document.getElementById(
+          "alarmId"
+        ).textContent = `INCIDENT-${Math.random()
+          .toString(36)
+          .substr(2, 9)
+          .toUpperCase()}`;
+
+        alarm.classList.add("active");
+        playBellSound();
+        playVoiceAlert();
+      }
+
+      function stopSecurityAlarm() {
+        const alarm = document.getElementById("securityAlarm");
+        alarm.classList.remove("active");
+        stopBellSound();
+        stopVoiceAlert();
+      }
+
+      document
+        .getElementById("stopAlarmBtn")
+        .addEventListener("click", stopSecurityAlarm);
+
+      // Keystroke capture
+      function captureKeystrokes(elementId) {
+        const element = document.getElementById(elementId);
+        let events = [];
+
+        element.addEventListener("keydown", (e) => {
+          events.push({
+            type: "down",
+            key: e.key,
+            time: performance.now(),
+            code: e.code,
           });
-          return { ok: res.ok, data: await res.json() };
-        },
-        buildPayload = () => ({
-          username: document.getElementById("username").value.trim() || "user",
-          phrase: PASS,
-          events,
         });
-      document.getElementById("enroll-btn").onclick = async () => {
-        if (textarea.value.trim() !== PASS)
-          return alert("Type exact passphrase first");
-        const payload = buildPayload();
-        if (payload.events.length < 4) return alert("Type full passphrase");
-        const res = await postJson("/enroll", payload);
-        log(
-          res.ok
-            ? `✅ Enrolled! Samples: ${res.data.num_samples}`
-            : `❌ Failed: ${JSON.stringify(res.data)}`
-        );
-        events = [];
-        textarea.value = "";
-      };
-      document.getElementById("verify-btn").onclick = async () => {
-        if (textarea.value.trim() !== PASS)
-          return alert("Type exact passphrase first");
-        const res = await postJson("/verify", buildPayload());
-        if (res.ok) {
-          const { genuine, score } = res.data;
-          log(
-            `${genuine ? "🟢 GENUINE" : "🔴 IMPOSTOR"} (${score.toFixed(3)})`
-          );
-          alert(
-            `${
-              genuine ? "✅ Authenticated" : "❌ Authentication Failed"
-            }\nScore: ${score.toFixed(3)}`
-          );
-        } else log(`❌ Error: ${JSON.stringify(res.data)}`);
-        events = [];
-        textarea.value = "";
-      };
-      document.getElementById("train-btn").onclick = async () => {
-        const res = await postJson("/train", {
-          username: document.getElementById("username").value.trim() || "user",
+
+        element.addEventListener("keyup", (e) => {
+          events.push({
+            type: "up",
+            key: e.key,
+            time: performance.now(),
+            code: e.code,
+          });
         });
-        log(
-          res.ok ? `🎯 Trained! Samples: ${res.data.num_samples}` : `❌ Failed`
-        );
-      };
-      document.getElementById("status-btn").onclick = async () => {
-        const res = await fetch(
-          "/status/" +
-            encodeURIComponent(
-              document.getElementById("username").value.trim() || "user"
-            )
-        );
-        const data = await res.json();
-        log(
-          `📊 ${data.num_samples} samples, ${
-            data.model_trained ? "trained" : "not trained"
-          }`
-        );
-      };
-      document.getElementById("reset-btn").onclick = async () => {
-        if (!confirm("Delete all data?")) return;
-        const res = await postJson("/reset", {
-          username: document.getElementById("username").value.trim() || "user",
+
+        return events;
+      }
+
+      const para1Events = captureKeystrokes("paragraph1Input");
+      const para2Events = captureKeystrokes("paragraph2Input");
+      const passwordTrainingEvents = captureKeystrokes("trainingPasswordInput");
+      const transactionEvents = captureKeystrokes("transactionPasswordInput");
+
+      // Tab switching
+      document.querySelectorAll(".tab-btn").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const tab = btn.dataset.tab;
+          document
+            .querySelectorAll(".tab-btn")
+            .forEach((b) => b.classList.remove("active"));
+          btn.classList.add("active");
+
+          document.getElementById("loginTab").style.display =
+            tab === "login" ? "block" : "none";
+          document.getElementById("registerTab").style.display =
+            tab === "register" ? "block" : "none";
         });
-        res.data.success &&
-          (log("🗑️ Reset complete"), (logEl.textContent = ""));
-        events = [];
-        textarea.value = "";
-      };
+      });
+
+      // Show alert
+      function showAlert(elementId, message, type) {
+        const alert = document.getElementById(elementId);
+        alert.className = `alert alert-${type} show`;
+        alert.innerHTML = message;
+        setTimeout(() => alert.classList.remove("show"), 5000);
+      }
+
+      // Register
+      document
+        .getElementById("registerForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const name = document.getElementById("registerName").value.trim();
+          const username = document
+            .getElementById("registerUsername")
+            .value.trim();
+          const email = document.getElementById("registerEmail").value.trim();
+          const password = document.getElementById("registerPassword").value;
+
+          try {
+            const response = await fetch(`${API_URL}/register`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password, name, email }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+              showAlert(
+                "registerAlert",
+                "✅ Account created! Please login.",
+                "success"
+              );
+              setTimeout(() => {
+                document.querySelector('[data-tab="login"]').click();
+                document.getElementById("loginUsername").value = username;
+              }, 1500);
+            } else {
+              showAlert("registerAlert", `❌ ${data.error}`, "error");
+            }
+          } catch (error) {
+            showAlert("registerAlert", "❌ Registration failed.", "error");
+          }
+        });
+
+      // Login
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const username = document
+            .getElementById("loginUsername")
+            .value.trim();
+          const password = document.getElementById("loginPassword").value;
+
+          try {
+            const response = await fetch(`${API_URL}/login`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+              currentUser = username;
+              document.getElementById("displayUsername").textContent = username;
+              document.getElementById("userInfo").classList.add("active");
+              switchScreen("dashboardScreen");
+              updateSecurityStatus(
+                data.biometric_trained,
+                data.total_samples || 0
+              );
+            } else {
+              showAlert("loginAlert", `❌ ${data.error}`, "error");
+            }
+          } catch (error) {
+            showAlert("loginAlert", "❌ Login failed.", "error");
+          }
+        });
+
+      // Update security status
+      function updateSecurityStatus(trained, totalSamples) {
+        const status = document.getElementById("securityStatus");
+        if (trained) {
+          status.innerHTML = `
+                    <div class="alert alert-success show">
+                        ✅ <strong>Biometric Authentication Active</strong><br>
+                        Trained with ${totalSamples} samples. Your account is secured.
+                    </div>
+                `;
+        } else {
+          status.innerHTML = `
+                    <div class="alert alert-info show">
+                        ⚠️ <strong>Biometric Authentication Not Trained</strong><br>
+                        Click "Train Biometric Model" to enable security.
+                    </div>
+                `;
+        }
+      }
+
+      // Train Model Button
+      document
+        .getElementById("trainModelBtn")
+        .addEventListener("click", async () => {
+          if (!currentUser) {
+            alert("Please login first.");
+            return;
+          }
+
+          try {
+            const response = await fetch(
+              `${API_URL}/get_training_status?username=${currentUser}`
+            );
+            const data = await response.json();
+
+            if (data.trained) {
+              requiredSamples = 5;
+              document.getElementById("requiredSamples").textContent =
+                requiredSamples;
+              document.getElementById("totalSamples").textContent =
+                requiredSamples;
+              document.getElementById("progressTotal").textContent =
+                requiredSamples;
+            }
+          } catch (error) {
+            console.log("Error checking status");
+          }
+
+          document.getElementById("trainingModal").classList.add("active");
+          resetTrainingModal();
+        });
+
+      function resetTrainingModal() {
+        document.getElementById("trainingStep1").style.display = "block";
+        document.getElementById("trainingStep2").style.display = "none";
+        document.getElementById("paragraph1Input").value = "";
+        document.getElementById("paragraph2Input").value = "";
+        document.getElementById("trainingPasswordSetup").value = "";
+        document.getElementById("trainingPasswordInput").value = "";
+        para1Events.length = 0;
+        para2Events.length = 0;
+        passwordTrainingEvents.length = 0;
+        trainingData = {
+          paragraph1Events: [],
+          paragraph2Events: [],
+          passwordSamples: [],
+        };
+        passwordSampleCount = 0;
+        updateProgressBar();
+      }
+
+      document
+        .getElementById("cancelTrainingBtn")
+        .addEventListener("click", () => {
+          document.getElementById("trainingModal").classList.remove("active");
+        });
+
+      // Paragraph 1 - Enter key
+      document
+        .getElementById("paragraph1Input")
+        .addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            const para1 = document
+              .getElementById("paragraph1Input")
+              .value.trim();
+            if (para1 === PARAGRAPH1) {
+              showAlert("trainingAlert", "✅ Paragraph 1 accepted!", "success");
+              document.getElementById("paragraph2Input").focus();
+            } else {
+              showAlert("trainingAlert", "❌ Must match exactly", "error");
+            }
+          }
+        });
+
+      // Paragraph 2 - Enter key
+      document
+        .getElementById("paragraph2Input")
+        .addEventListener("keydown", (e) => {
+          if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            document.getElementById("submitParagraphsBtn").click();
+          }
+        });
+
+      // Submit Paragraphs
+      document
+        .getElementById("submitParagraphsBtn")
+        .addEventListener("click", () => {
+          const para1 = document.getElementById("paragraph1Input").value.trim();
+          const para2 = document.getElementById("paragraph2Input").value.trim();
+
+          if (para1 !== PARAGRAPH1 || para2 !== PARAGRAPH2) {
+            showAlert(
+              "trainingAlert",
+              "❌ Paragraphs must match exactly",
+              "error"
+            );
+            return;
+          }
+
+          if (para1Events.length < 10 || para2Events.length < 10) {
+            showAlert("trainingAlert", "❌ Please type completely", "error");
+            return;
+          }
+
+          trainingData.paragraph1Events = [...para1Events];
+          trainingData.paragraph2Events = [...para2Events];
+
+          showAlert("trainingAlert", "✅ Paragraphs captured!", "success");
+          setTimeout(() => {
+            document.getElementById("trainingStep1").style.display = "none";
+            document.getElementById("trainingStep2").style.display = "block";
+            document.getElementById("trainingAlert").classList.remove("show");
+            document.getElementById("trainingPasswordSetup").focus();
+          }, 1000);
+        });
+
+      // Password input - Enter key
+      document
+        .getElementById("trainingPasswordInput")
+        .addEventListener("keydown", (e) => {
+          if (e.key === "Enter") {
+            e.preventDefault();
+            document.getElementById("capturePasswordSampleBtn").click();
+          }
+        });
+
+      // Capture Password Sample
+      document
+        .getElementById("capturePasswordSampleBtn")
+        .addEventListener("click", () => {
+          const password = document.getElementById(
+            "trainingPasswordSetup"
+          ).value;
+          const typedPassword = document.getElementById(
+            "trainingPasswordInput"
+          ).value;
+
+          if (!password) {
+            showAlert("trainingAlert", "❌ Create password first", "error");
+            document.getElementById("trainingPasswordSetup").focus();
+            return;
+          }
+
+          if (typedPassword !== password) {
+            showAlert("trainingAlert", "❌ Must match exactly", "error");
+            return;
+          }
+
+          if (passwordTrainingEvents.length < 5) {
+            showAlert("trainingAlert", "❌ Type complete password", "error");
+            return;
+          }
+
+          trainingData.passwordSamples.push([...passwordTrainingEvents]);
+          passwordSampleCount++;
+
+          document.getElementById("currentSample").textContent =
+            passwordSampleCount + 1;
+          document.getElementById("trainingPasswordInput").value = "";
+          passwordTrainingEvents.length = 0;
+
+          updateProgressBar();
+
+          if (passwordSampleCount >= requiredSamples) {
+            document.getElementById("capturePasswordSampleBtn").style.display =
+              "none";
+            document.getElementById("completeTrainingBtn").style.display =
+              "block";
+            showAlert("trainingAlert", "✅ All samples captured!", "success");
+          } else {
+            showAlert(
+              "trainingAlert",
+              `✅ Sample ${passwordSampleCount} captured!`,
+              "success"
+            );
+            document.getElementById("trainingPasswordInput").focus();
+          }
+        });
+
+      function updateProgressBar() {
+        const progress = (passwordSampleCount / requiredSamples) * 100;
+        document.getElementById("progressFill").style.width = progress + "%";
+        document.getElementById("progressCount").textContent =
+          passwordSampleCount + "/";
+      }
+
+      // Complete Training
+      document
+        .getElementById("completeTrainingBtn")
+        .addEventListener("click", async () => {
+          const password = document.getElementById(
+            "trainingPasswordSetup"
+          ).value;
+
+          try {
+            const response = await fetch(`${API_URL}/train_biometric`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                username: currentUser,
+                password: password,
+                paragraph1_events: trainingData.paragraph1Events,
+                paragraph2_events: trainingData.paragraph2Events,
+                password_samples: trainingData.passwordSamples,
+              }),
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+              document
+                .getElementById("trainingModal")
+                .classList.remove("active");
+              document.getElementById("trainedSamplesCount").textContent =
+                data.total_samples;
+              document
+                .getElementById("trainingSuccessModal")
+                .classList.add("active");
+            } else {
+              showAlert("trainingAlert", `❌ ${data.error}`, "error");
+            }
+          } catch (error) {
+            showAlert("trainingAlert", "❌ Training failed.", "error");
+          }
+        });
+
+      // Success Modal Actions
+      document.getElementById("continueBtn").addEventListener("click", () => {
+        document
+          .getElementById("trainingSuccessModal")
+          .classList.remove("active");
+        updateSecurityStatus(
+          true,
+          parseInt(document.getElementById("trainedSamplesCount").textContent)
+        );
+      });
+
+      document
+        .getElementById("trainMoreBtn")
+        .addEventListener("click", async () => {
+          document
+            .getElementById("trainingSuccessModal")
+            .classList.remove("active");
+
+          try {
+            const response = await fetch(
+              `${API_URL}/get_training_status?username=${currentUser}`
+            );
+            const data = await response.json();
+
+            if (data.trained) {
+              requiredSamples = 5;
+              document.getElementById("requiredSamples").textContent =
+                requiredSamples;
+              document.getElementById("totalSamples").textContent =
+                requiredSamples;
+              document.getElementById("progressTotal").textContent =
+                requiredSamples;
+            }
+          } catch (error) {
+            console.log("Error");
+          }
+
+          document.getElementById("trainingModal").classList.add("active");
+          resetTrainingModal();
+        });
+
+      // Transaction Flow
+      document.getElementById("transferBtn").addEventListener("click", () => {
+        document.getElementById("transactionModal").classList.add("active");
+        document.getElementById("transactionPasswordInput").value = "";
+        transactionEvents.length = 0;
+        setTimeout(
+          () => document.getElementById("transactionPasswordInput").focus(),
+          100
+        );
+      });
+
+      document.getElementById("payBillBtn").addEventListener("click", () => {
+        document.getElementById("transferTo").value =
+          "Electric Company - Invoice #45821";
+        document.getElementById("transferAmount").value = "$245.80";
+        document.getElementById("transactionModal").classList.add("active");
+        setTimeout(
+          () => document.getElementById("transactionPasswordInput").focus(),
+          100
+        );
+      });
+
+      document
+        .getElementById("cancelTransactionBtn")
+        .addEventListener("click", () => {
+          document
+            .getElementById("transactionModal")
+            .classList.remove("active");
+        });
+
+      // Transaction Form
+      document
+        .getElementById("transactionForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const password = document.getElementById(
+            "transactionPasswordInput"
+          ).value;
+
+          if (!password || transactionEvents.length < 5) {
+            showAlert("transactionAlert", "❌ Type complete password", "error");
+            return;
+          }
+
+          try {
+            const response = await fetch(`${API_URL}/verify_transaction`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                username: currentUser,
+                password: password,
+                keystroke_events: transactionEvents,
+                amount: document.getElementById("transferAmount").value,
+                recipient: document.getElementById("transferTo").value,
+              }),
+            });
+
+            const data = await response.json();
+
+            if (data.success && data.authorized) {
+              currentTransaction = {
+                recipient: document.getElementById("transferTo").value,
+                amount: document.getElementById("transferAmount").value,
+                transactionId: data.transaction_id,
+                dateTime: new Date().toLocaleString(),
+              };
+
+              document.getElementById("successRecipient").textContent =
+                currentTransaction.recipient;
+              document.getElementById("successAmount").textContent =
+                currentTransaction.amount;
+              document.getElementById("successDateTime").textContent =
+                currentTransaction.dateTime;
+              document.getElementById("successTransactionId").textContent =
+                currentTransaction.transactionId;
+
+              document
+                .getElementById("transactionModal")
+                .classList.remove("active");
+              switchScreen("successScreen");
+            } else if (data.impostor) {
+              document
+                .getElementById("transactionModal")
+                .classList.remove("active");
+              triggerSecurityAlarm(data);
+            } else {
+              showAlert(
+                "transactionAlert",
+                `❌ ${data.error || "Authentication failed"}`,
+                "error"
+              );
+            }
+          } catch (error) {
+            showAlert("transactionAlert", "❌ Transaction failed.", "error");
+          }
+        });
+
+      // Success Screen Actions
+      document.getElementById("shareBtn").addEventListener("click", () => {
+        const shareText = `Transaction Successful!\n\nRecipient: ${currentTransaction.recipient}\nAmount: ${currentTransaction.amount}\nTransaction ID: ${currentTransaction.transactionId}\nDate: ${currentTransaction.dateTime}`;
+
+        if (navigator.share) {
+          navigator
+            .share({
+              title: "Transaction Receipt",
+              text: shareText,
+            })
+            .catch((err) => console.log("Share failed"));
+        } else {
+          navigator.clipboard.writeText(shareText).then(() => {
+            alert("Receipt copied to clipboard!");
+          });
+        }
+      });
+
+      document.getElementById("goBackBtn").addEventListener("click", () => {
+        switchScreen("dashboardScreen");
+      });
+
+      // Logout
+      document.getElementById("logoutBtn").addEventListener("click", () => {
+        currentUser = null;
+        document.getElementById("userInfo").classList.remove("active");
+        switchScreen("authScreen");
+      });
+
+      function switchScreen(screenId) {
+        document
+          .querySelectorAll(".screen")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(screenId).classList.add("active");
+      }
+
+      // Other actions
+      document.getElementById("depositBtn").addEventListener("click", () => {
+        alert("💰 Deposit feature coming soon!");
+      });
+
+      document.getElementById("historyBtn").addEventListener("click", () => {
+        alert("📊 Transaction history coming soon!");
+      });
     </script>
   </body>
 </html>
