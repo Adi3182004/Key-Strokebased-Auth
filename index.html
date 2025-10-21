@@ -15,15 +15,12 @@
         padding: 0;
         box-sizing: border-box;
       }
-
       body {
         font-family: "Inter", "Segoe UI", -apple-system, BlinkMacSystemFont,
           sans-serif;
         background: #f5f7fa;
         min-height: 100vh;
       }
-
-      /* Header */
       .top-header {
         background: #ffffff;
         padding: 16px 40px;
@@ -36,7 +33,6 @@
         z-index: 100;
         border-bottom: 2px solid #3b82f6;
       }
-
       .logo {
         display: flex;
         align-items: center;
@@ -45,7 +41,6 @@
         font-weight: 700;
         color: #1e293b;
       }
-
       .logo-icon {
         width: 40px;
         height: 40px;
@@ -57,13 +52,11 @@
         color: white;
         font-size: 20px;
       }
-
       .header-actions {
         display: flex;
         gap: 15px;
         align-items: center;
       }
-
       .train-btn {
         background: #f59e0b;
         color: white;
@@ -76,12 +69,10 @@
         transition: all 0.2s;
         box-shadow: 0 2px 4px rgba(245, 158, 11, 0.2);
       }
-
       .train-btn:hover {
         background: #d97706;
         transform: translateY(-1px);
       }
-
       .user-info {
         display: none;
         align-items: center;
@@ -91,18 +82,28 @@
         border-radius: 6px;
         border: 1px solid #e2e8f0;
       }
-
       .user-info.active {
         display: flex;
       }
-
-      /* Container */
+      .logout-btn {
+        background: transparent;
+        border: 2px solid #e2e8f0;
+        color: #64748b;
+        padding: 8px 20px;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s;
+      }
+      .logout-btn:hover {
+        border-color: #ef4444;
+        color: #ef4444;
+      }
       .container {
         max-width: 1200px;
         margin: 40px auto;
         padding: 0 20px;
       }
-
       .card {
         background: white;
         border-radius: 8px;
@@ -111,27 +112,21 @@
         margin-bottom: 24px;
         border: 1px solid #e2e8f0;
       }
-
       .screen {
         display: none;
       }
-
       .screen.active {
         display: block;
       }
-
-      /* Auth */
       .auth-container {
         max-width: 450px;
         margin: 60px auto;
       }
-
       .auth-tabs {
         display: flex;
         gap: 10px;
         margin-bottom: 24px;
       }
-
       .tab-btn {
         flex: 1;
         padding: 14px;
@@ -143,17 +138,14 @@
         border-radius: 6px;
         transition: all 0.2s;
       }
-
       .tab-btn.active {
         background: #3b82f6;
         color: white;
         border-color: #3b82f6;
       }
-
       .form-group {
         margin-bottom: 20px;
       }
-
       .form-group label {
         display: block;
         color: #1e293b;
@@ -161,7 +153,6 @@
         margin-bottom: 8px;
         font-size: 14px;
       }
-
       .form-group input,
       .form-group textarea {
         width: 100%;
@@ -174,25 +165,21 @@
         font-family: inherit;
         background: white;
       }
-
       .form-group input:focus,
       .form-group textarea:focus {
         border-color: #3b82f6;
         box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
       }
-
       .form-group textarea {
         resize: vertical;
         min-height: 120px;
         line-height: 1.6;
       }
-
       .hint {
         font-size: 12px;
         color: #64748b;
         margin-top: 6px;
       }
-
       .btn {
         width: 100%;
         padding: 14px;
@@ -204,43 +191,34 @@
         transition: all 0.2s;
         margin-top: 12px;
       }
-
       .btn-primary {
         background: #3b82f6;
         color: white;
         box-shadow: 0 2px 4px rgba(59, 130, 246, 0.2);
       }
-
       .btn-primary:hover:not(:disabled) {
         background: #2563eb;
         transform: translateY(-1px);
       }
-
       .btn-primary:disabled {
         opacity: 0.6;
         cursor: not-allowed;
       }
-
       .btn-secondary {
         background: #f8fafc;
         color: #475569;
         border: 2px solid #e2e8f0;
       }
-
       .btn-secondary:hover {
         background: #f1f5f9;
       }
-
       .btn-success {
         background: #10b981;
         color: white;
       }
-
       .btn-success:hover {
         background: #059669;
       }
-
-      /* Alert */
       .alert {
         padding: 14px 18px;
         border-radius: 6px;
@@ -249,312 +227,92 @@
         display: none;
         border-left: 4px solid;
       }
-
       .alert.show {
         display: block;
       }
-
       .alert-success {
         background: #d1fae5;
         color: #065f46;
         border-color: #10b981;
       }
-
       .alert-error {
         background: #fee2e2;
         color: #991b1b;
         border-color: #ef4444;
       }
-
       .alert-info {
         background: #dbeafe;
         color: #1e40af;
         border-color: #3b82f6;
       }
-
-      /* Professional Corporate Security Alarm */
-      .security-alarm {
+      .strength-meter {
+        margin-top: 8px;
         display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        z-index: 99999;
-        background: #1e293b;
-      }
-
-      .security-alarm.active {
-        display: flex;
         align-items: center;
-        justify-content: center;
+        gap: 12px;
       }
-
-      .security-alarm::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(
-          90deg,
-          #dc2626 0%,
-          #dc2626 50%,
-          transparent 50%,
-          transparent 100%
-        );
-        background-size: 40px 4px;
-        animation: barberPole 1s linear infinite;
-      }
-
-      @keyframes barberPole {
-        0% {
-          background-position: 0 0;
-        }
-        100% {
-          background-position: 40px 0;
-        }
-      }
-
-      .alarm-container {
-        width: 100%;
-        max-width: 900px;
-        margin: 0 20px;
-      }
-
-      .alarm-panel {
-        background: #ffffff;
-        border-radius: 0;
-        border: 3px solid #dc2626;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-      }
-
-      .alarm-header {
-        background: #dc2626;
-        padding: 24px 40px;
-        border-bottom: 3px solid #991b1b;
-      }
-
-      .alarm-status-bar {
+      .strength-meter.active {
         display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 16px;
       }
-
-      .alarm-badge {
-        background: #ffffff;
-        color: #dc2626;
-        padding: 6px 16px;
+      .strength-bars {
+        display: flex;
+        gap: 4px;
+      }
+      .strength-bars span {
+        width: 30px;
+        height: 8px;
+        background: #e2e8f0;
+        border-radius: 4px;
+        display: inline-block;
+      }
+      .strength-bars span.active.weak {
+        background: #ef4444;
+      }
+      .strength-bars span.active.medium {
+        background: #f59e0b;
+      }
+      .strength-bars span.active.good {
+        background: #10b981;
+      }
+      .strength-label {
         font-size: 12px;
-        font-weight: 800;
-        letter-spacing: 2px;
-        text-transform: uppercase;
-        border-radius: 2px;
+        color: #64748b;
+        font-weight: 600;
       }
-
-      .alarm-live {
+      .password-requirements {
+        margin-top: 8px;
+        padding: 12px;
+        background: #f8fafc;
+        border-radius: 6px;
+        font-size: 12px;
+        display: none;
+      }
+      .password-requirements.active {
+        display: block;
+      }
+      .password-requirements h4 {
+        font-size: 13px;
+        color: #1e293b;
+        margin-bottom: 8px;
+        font-weight: 600;
+      }
+      .requirement {
         display: flex;
         align-items: center;
         gap: 8px;
-        color: white;
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
+        margin: 4px 0;
+        color: #64748b;
       }
-
-      .alarm-live-dot {
-        width: 8px;
-        height: 8px;
-        background: #ffffff;
-        border-radius: 50%;
-        animation: pulse 1s ease-in-out infinite;
+      .requirement.met {
+        color: #10b981;
       }
-
-      @keyframes pulse {
-        0%,
-        100% {
-          opacity: 1;
-        }
-        50% {
-          opacity: 0.3;
-        }
-      }
-
-      .alarm-title-section {
-        text-align: left;
-      }
-
-      .alarm-title {
-        font-size: 32px;
-        font-weight: 800;
-        color: #ffffff;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-
-      .alarm-subtitle {
-        font-size: 16px;
-        color: rgba(255, 255, 255, 0.95);
-        font-weight: 500;
-      }
-
-      .alarm-body {
-        padding: 40px;
-      }
-
-      .alarm-threat-level {
-        display: flex;
-        align-items: center;
-        gap: 16px;
-        padding: 20px;
-        background: #fef2f2;
-        border-left: 4px solid #dc2626;
-        margin-bottom: 32px;
-      }
-
-      .threat-icon {
-        width: 48px;
-        height: 48px;
-        background: #dc2626;
-        border-radius: 50%;
+      .requirement .icon {
+        width: 16px;
+        height: 16px;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: white;
-        font-size: 24px;
-        flex-shrink: 0;
       }
-
-      .threat-content h3 {
-        font-size: 14px;
-        color: #991b1b;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 4px;
-      }
-
-      .threat-content p {
-        font-size: 13px;
-        color: #7f1d1d;
-        margin: 0;
-      }
-
-      .alarm-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        margin-bottom: 32px;
-      }
-
-      .alarm-info-box {
-        background: #f8fafc;
-        padding: 20px;
-        border: 1px solid #e2e8f0;
-      }
-
-      .alarm-info-label {
-        font-size: 11px;
-        color: #64748b;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 8px;
-      }
-
-      .alarm-info-value {
-        font-size: 18px;
-        color: #1e293b;
-        font-weight: 700;
-        font-family: "Courier New", monospace;
-      }
-
-      .alarm-description {
-        background: #fff7ed;
-        border: 1px solid #fed7aa;
-        padding: 24px;
-        margin-bottom: 32px;
-      }
-
-      .alarm-description h4 {
-        font-size: 13px;
-        color: #92400e;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin-bottom: 12px;
-      }
-
-      .alarm-description p {
-        font-size: 14px;
-        color: #78350f;
-        line-height: 1.6;
-        margin: 0;
-      }
-
-      .alarm-actions {
-        display: flex;
-        gap: 16px;
-      }
-
-      .alarm-btn {
-        flex: 1;
-        padding: 16px 24px;
-        border: none;
-        font-size: 14px;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: all 0.2s;
-      }
-
-      .alarm-btn-primary {
-        background: #dc2626;
-        color: white;
-      }
-
-      .alarm-btn-primary:hover {
-        background: #991b1b;
-      }
-
-      .alarm-btn-secondary {
-        background: #f1f5f9;
-        color: #475569;
-        border: 2px solid #cbd5e1;
-      }
-
-      .alarm-btn-secondary:hover {
-        background: #e2e8f0;
-      }
-
-      .alarm-footer {
-        background: #f8fafc;
-        padding: 16px 40px;
-        border-top: 1px solid #e2e8f0;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-
-      .alarm-timestamp {
-        font-size: 12px;
-        color: #64748b;
-        font-family: "Courier New", monospace;
-      }
-
-      .alarm-id {
-        font-size: 12px;
-        color: #64748b;
-        font-family: "Courier New", monospace;
-        font-weight: 600;
-      }
-
-      /* Dashboard */
       .balance-card {
         background: #1e40af;
         color: white;
@@ -562,32 +320,27 @@
         border-radius: 8px;
         margin-bottom: 24px;
       }
-
       .balance-label {
         font-size: 14px;
         opacity: 0.9;
         margin-bottom: 8px;
       }
-
       .balance-amount {
         font-size: 42px;
         font-weight: 700;
         margin-bottom: 16px;
       }
-
       .account-number {
         font-size: 13px;
         opacity: 0.8;
         font-family: "Courier New", monospace;
       }
-
       .quick-actions {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
         gap: 16px;
         margin: 24px 0;
       }
-
       .action-card {
         background: white;
         border: 2px solid #e2e8f0;
@@ -597,30 +350,24 @@
         cursor: pointer;
         transition: all 0.2s;
       }
-
       .action-card:hover {
         border-color: #3b82f6;
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
       }
-
       .action-icon {
         font-size: 36px;
         margin-bottom: 12px;
       }
-
       .action-label {
         font-weight: 600;
         color: #1e293b;
         font-size: 15px;
       }
-
-      /* Transaction Success Screen */
       .success-screen {
         text-align: center;
         padding: 60px 40px;
       }
-
       .success-check {
         width: 120px;
         height: 120px;
@@ -632,7 +379,6 @@
         justify-content: center;
         animation: scaleIn 0.5s ease;
       }
-
       @keyframes scaleIn {
         0% {
           transform: scale(0);
@@ -644,25 +390,21 @@
           transform: scale(1);
         }
       }
-
       .success-check-icon {
         font-size: 64px;
         color: white;
       }
-
       .success-title {
         font-size: 36px;
         font-weight: 700;
         color: #10b981;
         margin-bottom: 16px;
       }
-
       .success-subtitle {
         font-size: 18px;
         color: #64748b;
         margin-bottom: 40px;
       }
-
       .transaction-details {
         background: #f8fafc;
         border-radius: 8px;
@@ -670,30 +412,25 @@
         margin: 32px 0;
         text-align: left;
       }
-
       .detail-row {
         display: flex;
         justify-content: space-between;
         padding: 16px 0;
         border-bottom: 1px solid #e2e8f0;
       }
-
       .detail-row:last-child {
         border-bottom: none;
       }
-
       .detail-label {
         color: #64748b;
         font-size: 14px;
         font-weight: 500;
       }
-
       .detail-value {
         color: #1e293b;
         font-size: 14px;
         font-weight: 600;
       }
-
       .transaction-id {
         background: #eff6ff;
         padding: 16px;
@@ -704,53 +441,43 @@
         color: #1e40af;
         font-weight: 600;
       }
-
       .action-buttons {
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 16px;
         margin-top: 32px;
       }
-
       .btn-icon {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 8px;
       }
-
-      /* Progress */
       .progress-container {
         margin: 20px 0;
       }
-
       .progress-header {
         display: flex;
         justify-content: space-between;
         margin-bottom: 8px;
       }
-
       .progress-label {
         font-weight: 600;
         color: #1e293b;
         font-size: 14px;
       }
-
       .progress-bar {
         height: 10px;
         background: #e2e8f0;
         border-radius: 10px;
         overflow: hidden;
       }
-
       .progress-fill {
         height: 100%;
         background: #3b82f6;
         border-radius: 10px;
         transition: width 0.4s ease;
       }
-
-      /* Modal */
       .modal {
         display: none;
         position: fixed;
@@ -764,11 +491,9 @@
         z-index: 1000;
         padding: 20px;
       }
-
       .modal.active {
         display: flex;
       }
-
       .modal-content {
         background: white;
         border-radius: 8px;
@@ -779,14 +504,12 @@
         overflow-y: auto;
         box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
       }
-
       .modal-header {
         font-size: 22px;
         font-weight: 700;
         color: #1e293b;
         margin-bottom: 20px;
       }
-
       .info-banner {
         background: #eff6ff;
         padding: 20px;
@@ -794,207 +517,177 @@
         margin-bottom: 24px;
         border-left: 4px solid #3b82f6;
       }
-
       .info-banner h3 {
         color: #1e293b;
         margin-bottom: 8px;
         font-size: 16px;
       }
-
       .info-banner p {
         color: #475569;
         font-size: 13px;
         line-height: 1.6;
       }
-
       .paragraph-box {
         background: #f8fafc;
         padding: 16px;
         border-radius: 6px;
+        margin-bottom: 12px;
+        border-left: 3px solid #3b82f6;
+        font-family: monospace;
+      }
+      .history-item {
+        border: 1px solid #e2e8f0;
+        border-left-width: 4px;
+        border-radius: 6px;
+        padding: 16px;
+        margin-bottom: 12px;
+        background: #fff;
+      }
+      .history-item.completed {
+        border-left-color: #10b981;
+      }
+      .history-item.blocked {
+        border-left-color: #ef4444;
+        background: #fff7f7;
+      }
+      .history-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .badge {
+        padding: 4px 8px;
+        border-radius: 9999px;
+        font-size: 12px;
+        font-weight: 700;
+      }
+      .badge.completed {
+        background: #d1fae5;
+        color: #065f46;
+      }
+      .badge.blocked {
+        background: #fee2e2;
+        color: #991b1b;
+      }
+      .history-meta {
+        font-size: 12px;
+        color: #64748b;
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
+      .history-actions {
+        display: flex;
+        gap: 8px;
+        margin-top: 12px;
+      }
+      .security-alarm {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 99999;
+        background: #1e293b;
+      }
+      .security-alarm.active {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .alarm-container {
+        width: 100%;
+        max-width: 900px;
+        margin: 0 20px;
+      }
+      .alarm-panel {
+        background: #ffffff;
+        border: 3px solid #dc2626;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      }
+      .alarm-header {
+        background: #dc2626;
+        padding: 24px 40px;
+        border-bottom: 3px solid #991b1b;
+      }
+      .alarm-title {
+        font-size: 32px;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+      }
+      .alarm-body {
+        padding: 40px;
+      }
+      .alarm-info-box {
+        background: #f8fafc;
+        padding: 20px;
         border: 1px solid #e2e8f0;
         margin-bottom: 16px;
-        font-size: 14px;
-        line-height: 1.7;
-        color: #1e293b;
       }
-
-      .logout-btn {
-        background: transparent;
-        border: 2px solid #e2e8f0;
+      .alarm-info-label {
+        font-size: 11px;
         color: #64748b;
-        padding: 8px 20px;
-        border-radius: 6px;
-        cursor: pointer;
         font-weight: 600;
-        transition: all 0.2s;
+        text-transform: uppercase;
+        margin-bottom: 8px;
       }
-
-      .logout-btn:hover {
-        border-color: #ef4444;
-        color: #ef4444;
-      }
-
-      /* Training Success Modal */
-      .success-modal {
-        text-align: center;
-      }
-
-      .success-icon {
-        font-size: 80px;
-        margin-bottom: 20px;
-      }
-
-      .success-modal-title {
-        font-size: 28px;
+      .alarm-info-value {
+        font-size: 18px;
+        color: #1e293b;
         font-weight: 700;
-        color: #10b981;
-        margin-bottom: 12px;
+        font-family: "Courier New", monospace;
       }
-
-      .success-message {
-        font-size: 16px;
-        color: #475569;
-        margin-bottom: 32px;
-        line-height: 1.6;
+      .alarm-btn {
+        padding: 16px 24px;
+        border: none;
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        margin: 8px;
+        border-radius: 6px;
       }
-
-      .btn-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 12px;
-      }
-
-      /* Responsive */
-      @media (max-width: 768px) {
-        .alarm-panel {
-          border: 2px solid #dc2626;
-        }
-
-        .alarm-header {
-          padding: 20px 24px;
-        }
-
-        .alarm-body {
-          padding: 24px;
-        }
-
-        .alarm-title {
-          font-size: 24px;
-        }
-
-        .alarm-grid {
-          grid-template-columns: 1fr;
-        }
-
-        .alarm-actions {
-          flex-direction: column;
-        }
-
-        .success-title {
-          font-size: 28px;
-        }
-
-        .action-buttons {
-          grid-template-columns: 1fr;
-        }
+      .alarm-btn-primary {
+        background: #dc2626;
+        color: white;
       }
     </style>
   </head>
   <body>
-    <!-- Professional Corporate Security Alarm -->
     <div id="securityAlarm" class="security-alarm">
       <div class="alarm-container">
         <div class="alarm-panel">
           <div class="alarm-header">
-            <div class="alarm-status-bar">
-              <div class="alarm-badge">CRITICAL SECURITY ALERT</div>
-              <div class="alarm-live">
-                <div class="alarm-live-dot"></div>
-                LIVE INCIDENT
-              </div>
-            </div>
-            <div class="alarm-title-section">
-              <h1 class="alarm-title">Unauthorized Access Detected</h1>
-              <p class="alarm-subtitle">
-                Biometric Authentication Failure - Account Access Blocked
-              </p>
-            </div>
+            <h1 class="alarm-title">⚠️ Unauthorized Access Detected</h1>
           </div>
-
           <div class="alarm-body">
-            <div class="alarm-threat-level">
-              <div class="threat-icon">⚠</div>
-              <div class="threat-content">
-                <h3>Threat Level: High</h3>
-                <p>
-                  Keystroke pattern analysis indicates potential unauthorized
-                  access attempt
-                </p>
+            <div class="alarm-info-box">
+              <div class="alarm-info-label">Speed Deviation</div>
+              <div
+                class="alarm-info-value"
+                id="alarmDeviation"
+                style="color: #dc2626"
+              >
+                -
               </div>
             </div>
-
-            <div class="alarm-grid">
-              <div class="alarm-info-box">
-                <div class="alarm-info-label">Detection Method</div>
-                <div class="alarm-info-value">Keystroke Biometrics</div>
-              </div>
-              <div class="alarm-info-box">
-                <div class="alarm-info-label">Anomaly Type</div>
-                <div class="alarm-info-value" id="alarmAnomalyType">
-                  SLOW TYPING
-                </div>
-              </div>
-              <div class="alarm-info-box">
-                <div class="alarm-info-label">Speed Deviation</div>
-                <div
-                  class="alarm-info-value"
-                  id="alarmDeviation"
-                  style="color: #dc2626"
-                >
-                  -
-                </div>
-              </div>
-              <div class="alarm-info-box">
-                <div class="alarm-info-label">Status</div>
-                <div class="alarm-info-value" style="color: #dc2626">
-                  BLOCKED
-                </div>
-              </div>
-            </div>
-
-            <div class="alarm-description">
-              <h4>Incident Report</h4>
-              <p id="alarmMessageText">
-                An unauthorized access attempt has been detected and blocked.
-                The typing pattern analysis shows significant deviation from
-                registered biometric signature. The transaction has been
-                terminated and this incident has been logged for security
-                review.
+            <div class="alarm-info-box">
+              <div class="alarm-info-label">Incident Report</div>
+              <p id="alarmMessageText" style="font-size: 14px; color: #78350f">
+                Typing pattern anomaly detected
               </p>
             </div>
-
-            <div class="alarm-actions">
-              <button class="alarm-btn alarm-btn-primary" id="stopAlarmBtn">
-                Acknowledge & Dismiss
-              </button>
-              <button
-                class="alarm-btn alarm-btn-secondary"
-                onclick="window.location.reload()"
-              >
-                Return to Login
-              </button>
-            </div>
-          </div>
-
-          <div class="alarm-footer">
-            <div class="alarm-timestamp" id="alarmTimestamp">-</div>
-            <div class="alarm-id" id="alarmId">-</div>
+            <button class="alarm-btn alarm-btn-primary" id="stopAlarmBtn">
+              Acknowledge & Dismiss
+            </button>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- Header -->
     <div class="top-header">
       <div class="logo">
         <div class="logo-icon">🏦</div>
@@ -1012,16 +705,13 @@
     </div>
 
     <div class="container">
-      <!-- Login/Register Screen -->
       <div id="authScreen" class="screen active">
         <div class="auth-container card">
           <div class="auth-tabs">
             <button class="tab-btn active" data-tab="login">Login</button>
             <button class="tab-btn" data-tab="register">Register</button>
           </div>
-
-          <!-- Login Tab -->
-          <div id="loginTab" class="tab-content active">
+          <div id="loginTab">
             <h2 style="margin-bottom: 20px; color: #1e293b">Welcome Back</h2>
             <div id="loginAlert" class="alert"></div>
             <form id="loginForm">
@@ -1048,9 +738,7 @@
               </button>
             </form>
           </div>
-
-          <!-- Register Tab -->
-          <div id="registerTab" class="tab-content" style="display: none">
+          <div id="registerTab" style="display: none">
             <h2 style="margin-bottom: 20px; color: #1e293b">Create Account</h2>
             <div id="registerAlert" class="alert"></div>
             <form id="registerForm">
@@ -1089,8 +777,43 @@
                   placeholder="Create a strong password"
                   required
                 />
+                <div class="strength-meter" id="regStrengthMeter">
+                  <div class="strength-bars" id="regStrengthBars">
+                    <span></span><span></span><span></span>
+                  </div>
+                  <div class="strength-label" id="regStrengthLabel">
+                    Strength: -
+                  </div>
+                </div>
+                <div class="password-requirements" id="regPasswordReqs">
+                  <h4>Password must contain:</h4>
+                  <div class="requirement" id="regReqLength">
+                    <span class="icon">○</span
+                    ><span>At least 8 characters</span>
+                  </div>
+                  <div class="requirement" id="regReqUpper">
+                    <span class="icon">○</span
+                    ><span>One uppercase letter (A-Z)</span>
+                  </div>
+                  <div class="requirement" id="regReqLower">
+                    <span class="icon">○</span
+                    ><span>One lowercase letter (a-z)</span>
+                  </div>
+                  <div class="requirement" id="regReqNumber">
+                    <span class="icon">○</span><span>One number (0-9)</span>
+                  </div>
+                  <div class="requirement" id="regReqSpecial">
+                    <span class="icon">○</span
+                    ><span>One special character (!@#$%^&*)</span>
+                  </div>
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary">
+              <button
+                type="submit"
+                class="btn btn-primary"
+                id="registerSubmitBtn"
+                disabled
+              >
                 Create Account
               </button>
             </form>
@@ -1098,14 +821,12 @@
         </div>
       </div>
 
-      <!-- Dashboard Screen -->
       <div id="dashboardScreen" class="screen">
         <div class="balance-card">
           <div class="balance-label">Available Balance</div>
-          <div class="balance-amount">$24,582.50</div>
+          <div class="balance-amount" id="balanceAmount">₹24,582.50</div>
           <div class="account-number">**** **** **** 7294</div>
         </div>
-
         <div class="card">
           <h3 style="margin-bottom: 20px; color: #1e293b">Quick Actions</h3>
           <div class="quick-actions">
@@ -1127,19 +848,17 @@
             </div>
           </div>
         </div>
-
         <div class="card">
           <h3 style="margin-bottom: 16px; color: #1e293b">Security Status</h3>
           <div id="securityStatus">
             <div class="alert alert-info show">
-              ⚠️ <strong>Biometric Authentication Not Trained</strong><br />
-              Click "Train Biometric Model" to enable security.
+              ⚠️ <strong>Biometric Authentication Not Trained</strong
+              ><br />Click "Train Biometric Model" to enable security.
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Transaction Success Screen -->
       <div id="successScreen" class="screen">
         <div class="card">
           <div class="success-screen">
@@ -1150,32 +869,29 @@
             <p class="success-subtitle">
               Your payment has been processed successfully
             </p>
-
             <div class="transaction-details">
               <div class="detail-row">
-                <span class="detail-label">Recipient</span>
-                <span class="detail-value" id="successRecipient">-</span>
+                <span class="detail-label">Recipient</span
+                ><span class="detail-value" id="successRecipient">-</span>
               </div>
               <div class="detail-row">
-                <span class="detail-label">Amount</span>
-                <span class="detail-value" id="successAmount">-</span>
+                <span class="detail-label">Amount</span
+                ><span class="detail-value" id="successAmount">-</span>
               </div>
               <div class="detail-row">
-                <span class="detail-label">Date & Time</span>
-                <span class="detail-value" id="successDateTime">-</span>
+                <span class="detail-label">Date & Time</span
+                ><span class="detail-value" id="successDateTime">-</span>
               </div>
               <div class="detail-row">
-                <span class="detail-label">Status</span>
-                <span class="detail-value" style="color: #10b981"
+                <span class="detail-label">Status</span
+                ><span class="detail-value" style="color: #10b981"
                   >✓ Completed</span
                 >
               </div>
             </div>
-
             <div class="transaction-id">
               Transaction ID: <span id="successTransactionId">-</span>
             </div>
-
             <div class="action-buttons">
               <button class="btn btn-primary btn-icon" id="shareBtn">
                 📤 Share Receipt
@@ -1187,49 +903,64 @@
           </div>
         </div>
       </div>
+
+      <div id="historyScreen" class="screen">
+        <div class="card">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 12px;
+            "
+          >
+            <h3 style="color: #1e293b">Transaction History</h3>
+            <button
+              class="btn btn-secondary"
+              id="backToDashboardBtn"
+              style="width: auto"
+            >
+              ← Back
+            </button>
+          </div>
+          <div id="historyList"></div>
+        </div>
+      </div>
     </div>
 
-    <!-- Training Modal -->
     <div id="trainingModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">⚡ Biometric Training</div>
         <div id="trainingAlert" class="alert"></div>
-
-        <!-- Step 1: Paragraphs -->
-        <div id="trainingStep1" class="training-step">
+        <div id="trainingStep1">
           <div class="info-banner">
             <h3>🔐 Step 1: Type Two Paragraphs</h3>
             <p>
               Type naturally. Press <strong>Enter</strong> after each paragraph.
             </p>
           </div>
-
           <div class="paragraph-box">
             The quick brown fox jumps over the lazy dog while the sun sets
             behind the mountains.
           </div>
           <div class="form-group">
-            <label>Type Paragraph 1</label>
-            <textarea
+            <label>Type Paragraph 1</label
+            ><textarea
               id="paragraph1Input"
               placeholder="Type the paragraph above..."
             ></textarea>
-            <div class="hint">✅ Press Enter to submit</div>
           </div>
-
           <div class="paragraph-box">
             Security and privacy are fundamental rights in our digital age and
             must be protected carefully.
           </div>
           <div class="form-group">
-            <label>Type Paragraph 2</label>
-            <textarea
+            <label>Type Paragraph 2</label
+            ><textarea
               id="paragraph2Input"
               placeholder="Type the paragraph above..."
             ></textarea>
-            <div class="hint">✅ Press Enter to submit</div>
           </div>
-
           <button class="btn btn-primary" id="submitParagraphsBtn">
             Next: Set Password
           </button>
@@ -1237,18 +968,14 @@
             Cancel
           </button>
         </div>
-
-        <!-- Step 2: Password Setup -->
-        <div id="trainingStep2" class="training-step" style="display: none">
+        <div id="trainingStep2" style="display: none">
           <div class="info-banner">
-            <h3>🔑 Step 2: Create Your Password</h3>
+            <h3>🔑 Step 2: Create Your Transaction Password</h3>
             <p>
-              Type your password
-              <strong><span id="requiredSamples">5</span></strong> times. Press
+              Type your password <strong>5</strong> times. Press
               <strong>Enter</strong> after each.
             </p>
           </div>
-
           <div class="form-group">
             <label>Create Password</label>
             <input
@@ -1256,29 +983,49 @@
               id="trainingPasswordSetup"
               placeholder="Enter your secure password"
             />
+            <div class="strength-meter" id="trainStrengthMeter">
+              <div class="strength-bars" id="trainStrengthBars">
+                <span></span><span></span><span></span>
+              </div>
+              <div class="strength-label" id="trainStrengthLabel">
+                Strength: -
+              </div>
+            </div>
+            <div class="password-requirements" id="trainPasswordReqs">
+              <h4>Password must contain:</h4>
+              <div class="requirement" id="trainReqLength">
+                <span class="icon">○</span><span>At least 8 characters</span>
+              </div>
+              <div class="requirement" id="trainReqUpper">
+                <span class="icon">○</span
+                ><span>One uppercase letter (A-Z)</span>
+              </div>
+              <div class="requirement" id="trainReqLower">
+                <span class="icon">○</span
+                ><span>One lowercase letter (a-z)</span>
+              </div>
+              <div class="requirement" id="trainReqNumber">
+                <span class="icon">○</span><span>One number (0-9)</span>
+              </div>
+              <div class="requirement" id="trainReqSpecial">
+                <span class="icon">○</span
+                ><span>One special character (!@#$%^&*)</span>
+              </div>
+            </div>
           </div>
-
           <div class="form-group">
             <label
-              >Type Password (Sample <span id="currentSample">1</span>/<span
-                id="totalSamples"
-                >5</span
-              >)</label
-            >
-            <input
+              >Type Password (Sample <span id="currentSample">1</span>/5)</label
+            ><input
               type="password"
               id="trainingPasswordInput"
               placeholder="Type your password here..."
             />
-            <div class="hint">🔒 Press Enter to capture</div>
           </div>
-
           <div class="progress-container">
             <div class="progress-header">
-              <span class="progress-label">Training Progress</span>
-              <span class="progress-label" id="progressCount"
-                >0/<span id="progressTotal">5</span></span
-              >
+              <span class="progress-label">Training Progress</span
+              ><span class="progress-label" id="progressCount">0/5</span>
             </div>
             <div class="progress-bar">
               <div
@@ -1288,7 +1035,6 @@
               ></div>
             </div>
           </div>
-
           <button class="btn btn-primary" id="capturePasswordSampleBtn">
             Capture Sample
           </button>
@@ -1303,61 +1049,49 @@
       </div>
     </div>
 
-    <!-- Training Success Modal -->
     <div id="trainingSuccessModal" class="modal">
-      <div class="modal-content success-modal">
-        <div class="success-icon">🎉</div>
-        <div class="success-modal-title">Training Complete!</div>
-        <div class="success-message">
-          Your biometric model has been successfully trained with
-          <strong id="trainedSamplesCount">5</strong> samples.<br />
-          Your account is now secured with keystroke authentication.
-        </div>
-        <div class="btn-grid">
-          <button class="btn btn-success" id="continueBtn">Continue</button>
-          <button class="btn btn-primary" id="trainMoreBtn">Train More</button>
-        </div>
+      <div class="modal-content" style="text-align: center">
+        <div style="font-size: 64px; margin-bottom: 20px">🎉</div>
+        <h2 style="font-size: 24px; margin-bottom: 16px; color: #10b981">
+          Training Complete!
+        </h2>
+        <p style="margin-bottom: 24px">
+          Your biometric model has been successfully trained.
+        </p>
+        <button class="btn btn-success" id="continueBtn">Continue</button>
+        <button class="btn btn-primary" id="trainMoreBtn">Train More</button>
       </div>
     </div>
 
-    <!-- Transaction Modal -->
     <div id="transactionModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">💸 Authorize Transaction</div>
         <div id="transactionAlert" class="alert"></div>
-
         <div class="form-group">
-          <label>Transfer To</label>
-          <input
+          <label>Transfer To</label
+          ><input
             type="text"
             id="transferTo"
             value="Aditya Andhalkar - Account ****1234"
             readonly
           />
         </div>
-
         <div class="form-group">
-          <label>Amount</label>
-          <input type="text" id="transferAmount" value="$500.00" readonly />
+          <label>Amount</label
+          ><input type="text" id="transferAmount" value="₹500.00" readonly />
         </div>
-
         <div class="info-banner">
           <h3>🔒 Biometric Authentication Required</h3>
-          <p>
-            Type your password normally. Press <strong>Enter</strong> to
-            authorize.
-          </p>
+          <p>Type your transaction password normally.</p>
         </div>
-
         <form id="transactionForm">
           <div class="form-group">
-            <label>Enter Password to Authorize</label>
-            <input
+            <label>Enter Transaction Password</label
+            ><input
               type="password"
               id="transactionPasswordInput"
               placeholder="Type your password..."
             />
-            <div class="hint">⌨️ Type naturally - biometrics active</div>
           </div>
           <button type="submit" class="btn btn-success">
             Authorize & Transfer
@@ -1369,189 +1103,93 @@
       </div>
     </div>
 
+    <div id="depositModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">💰 Deposit Funds</div>
+        <div id="depositAlert" class="alert"></div>
+        <div class="form-group">
+          <label>Amount</label
+          ><input
+            type="number"
+            id="depositAmount"
+            placeholder="Enter amount"
+            min="1"
+            step="0.01"
+          />
+        </div>
+        <div class="info-banner">
+          <h3>🔒 Confirm with Login Password</h3>
+          <p>Enter your account login password to confirm this deposit.</p>
+        </div>
+        <form id="depositForm">
+          <div class="form-group">
+            <label>Login Password</label
+            ><input
+              type="password"
+              id="depositPassword"
+              placeholder="Enter your login password"
+            />
+          </div>
+          <button type="submit" class="btn btn-success">Confirm Deposit</button>
+        </form>
+        <button class="btn btn-secondary" id="cancelDepositBtn">Cancel</button>
+      </div>
+    </div>
+
     <script>
       const API_URL = "http://127.0.0.1:5000";
-
       const PARAGRAPH1 =
         "The quick brown fox jumps over the lazy dog while the sun sets behind the mountains.";
       const PARAGRAPH2 =
         "Security and privacy are fundamental rights in our digital age and must be protected carefully.";
 
-      let currentUser = null;
+      let currentUser = null,
+        currentBalance = 24582.5;
       let trainingData = {
         paragraph1Events: [],
         paragraph2Events: [],
         passwordSamples: [],
       };
-      let passwordSampleCount = 0;
-      let requiredSamples = 5;
-      let currentTransaction = {};
+      let passwordSampleCount = 0,
+        requiredSamples = 5,
+        currentTransaction = {};
 
-      // Alarm System Variables
-      let alarmInterval = null;
-      let speechInterval = null;
-      let audioContext = null;
-      let bellOscillator = null;
-      let bellGain = null;
-
-      // Initialize Web Audio for Bell Sound
-      function initializeBellSound() {
-        try {
-          audioContext = new (window.AudioContext ||
-            window.webkitAudioContext)();
-          return true;
-        } catch (e) {
-          console.log("Web Audio API not supported");
-          return false;
-        }
-      }
-
-      // Create Professional Bell Ringing Sound
-      function playBellSound() {
-        if (!audioContext) {
-          if (!initializeBellSound()) return;
-        }
-
-        stopBellSound();
-
-        bellOscillator = audioContext.createOscillator();
-        bellGain = audioContext.createGain();
-
-        bellOscillator.frequency.value = 659.25;
-        bellOscillator.type = "sine";
-
-        bellOscillator.connect(bellGain);
-        bellGain.connect(audioContext.destination);
-
-        const now = audioContext.currentTime;
-        bellGain.gain.setValueAtTime(0.3, now);
-        bellGain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
-
-        bellOscillator.start(now);
-        bellOscillator.stop(now + 0.5);
-
-        alarmInterval = setTimeout(playBellSound, 600);
-      }
-
-      function stopBellSound() {
-        if (alarmInterval) {
-          clearTimeout(alarmInterval);
-          alarmInterval = null;
-        }
-        if (bellOscillator) {
-          try {
-            bellOscillator.stop();
-          } catch (e) {}
-          bellOscillator = null;
-        }
-      }
-
-      // Voice Alert System
-      function playVoiceAlert() {
-        if (!window.speechSynthesis) return;
-
-        function speak() {
-          window.speechSynthesis.cancel();
-
-          const utterance = new SpeechSynthesisUtterance(
-            "Alert! Alert! Security breach detected! Unauthorized access attempt identified!"
-          );
-          utterance.rate = 1.2;
-          utterance.pitch = 1.5;
-          utterance.volume = 1.0;
-          utterance.lang = "en-US";
-
-          window.speechSynthesis.speak(utterance);
-        }
-
-        speak();
-        speechInterval = setInterval(speak, 6000);
-      }
-
-      function stopVoiceAlert() {
-        if (speechInterval) {
-          clearInterval(speechInterval);
-          speechInterval = null;
-        }
-        if (window.speechSynthesis) {
-          window.speechSynthesis.cancel();
-        }
-      }
-
-      // Professional Security Alarm
-      function triggerSecurityAlarm(data) {
-        const alarm = document.getElementById("securityAlarm");
-
-        document.getElementById(
-          "alarmDeviation"
-        ).textContent = `${data.speed_deviation}% SLOWER`;
-        document.getElementById("alarmMessageText").innerHTML = `
-                An unauthorized access attempt has been detected and automatically blocked by our biometric security system. 
-                Analysis shows the typing speed was ${data.speed_deviation}% slower than your registered baseline 
-                (Current: ${data.auth_speed} chars/sec | Expected: ${data.training_speed} chars/sec). 
-                This transaction has been terminated and logged for security review. 
-                If you did not attempt this transaction, please contact our security team immediately.
-            `;
-
-        const now = new Date();
-        document.getElementById(
-          "alarmTimestamp"
-        ).textContent = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
-        document.getElementById(
-          "alarmId"
-        ).textContent = `INCIDENT-${Math.random()
-          .toString(36)
-          .substr(2, 9)
-          .toUpperCase()}`;
-
-        alarm.classList.add("active");
-        playBellSound();
-        playVoiceAlert();
-      }
-
-      function stopSecurityAlarm() {
-        const alarm = document.getElementById("securityAlarm");
-        alarm.classList.remove("active");
-        stopBellSound();
-        stopVoiceAlert();
-      }
-
-      document
-        .getElementById("stopAlarmBtn")
-        .addEventListener("click", stopSecurityAlarm);
-
-      // Keystroke capture
       function captureKeystrokes(elementId) {
         const element = document.getElementById(elementId);
         let events = [];
-
-        element.addEventListener("keydown", (e) => {
+        element.addEventListener("keydown", (e) =>
           events.push({
             type: "down",
             key: e.key,
             time: performance.now(),
             code: e.code,
-          });
-        });
-
-        element.addEventListener("keyup", (e) => {
+          })
+        );
+        element.addEventListener("keyup", (e) =>
           events.push({
             type: "up",
             key: e.key,
             time: performance.now(),
             code: e.code,
-          });
-        });
-
+          })
+        );
         return events;
       }
-
       const para1Events = captureKeystrokes("paragraph1Input");
       const para2Events = captureKeystrokes("paragraph2Input");
       const passwordTrainingEvents = captureKeystrokes("trainingPasswordInput");
       const transactionEvents = captureKeystrokes("transactionPasswordInput");
 
-      // Tab switching
+      function updateBalance(newBalance) {
+        currentBalance = newBalance;
+        document.getElementById(
+          "balanceAmount"
+        ).textContent = `₹${newBalance.toLocaleString("en-IN", {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2,
+        })}`;
+      }
+
       document.querySelectorAll(".tab-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           const tab = btn.dataset.tab;
@@ -1559,7 +1197,6 @@
             .querySelectorAll(".tab-btn")
             .forEach((b) => b.classList.remove("active"));
           btn.classList.add("active");
-
           document.getElementById("loginTab").style.display =
             tab === "login" ? "block" : "none";
           document.getElementById("registerTab").style.display =
@@ -1567,7 +1204,6 @@
         });
       });
 
-      // Show alert
       function showAlert(elementId, message, type) {
         const alert = document.getElementById(elementId);
         alert.className = `alert alert-${type} show`;
@@ -1575,28 +1211,143 @@
         setTimeout(() => alert.classList.remove("show"), 5000);
       }
 
-      // Register
+      function checkRequirements(pw, prefix) {
+        const length = pw.length >= 8,
+          upper = /[A-Z]/.test(pw),
+          lower = /[a-z]/.test(pw),
+          digit = /\d/.test(pw),
+          special = /[^A-Za-z0-9]/.test(pw);
+        document
+          .getElementById(`${prefix}ReqLength`)
+          .classList.toggle("met", length);
+        document
+          .getElementById(`${prefix}ReqUpper`)
+          .classList.toggle("met", upper);
+        document
+          .getElementById(`${prefix}ReqLower`)
+          .classList.toggle("met", lower);
+        document
+          .getElementById(`${prefix}ReqNumber`)
+          .classList.toggle("met", digit);
+        document
+          .getElementById(`${prefix}ReqSpecial`)
+          .classList.toggle("met", special);
+        document
+          .getElementById(`${prefix}ReqLength`)
+          .querySelector(".icon").textContent = length ? "✓" : "○";
+        document
+          .getElementById(`${prefix}ReqUpper`)
+          .querySelector(".icon").textContent = upper ? "✓" : "○";
+        document
+          .getElementById(`${prefix}ReqLower`)
+          .querySelector(".icon").textContent = lower ? "✓" : "○";
+        document
+          .getElementById(`${prefix}ReqNumber`)
+          .querySelector(".icon").textContent = digit ? "✓" : "○";
+        document
+          .getElementById(`${prefix}ReqSpecial`)
+          .querySelector(".icon").textContent = special ? "✓" : "○";
+      }
+
+      function evaluateStrength(pw) {
+        if (!pw) return "weak";
+        const length = pw.length,
+          lower = /[a-z]/.test(pw),
+          upper = /[A-Z]/.test(pw),
+          digit = /\d/.test(pw),
+          special = /[^A-Za-z0-9]/.test(pw);
+        const classes = [lower, upper, digit, special].filter(Boolean).length;
+        if (length >= 12 && classes >= 3) return "good";
+        if (length >= 8 && classes >= 2) return "medium";
+        return "weak";
+      }
+
+      function updateStrengthUI(barsId, labelId, strength) {
+        const bars = document.getElementById(barsId).querySelectorAll("span");
+        bars.forEach((b) => (b.className = ""));
+        let count = strength === "good" ? 3 : strength === "medium" ? 2 : 1;
+        for (let i = 0; i < count; i++)
+          bars[i].classList.add("active", strength);
+        const label = document.getElementById(labelId);
+        label.textContent = `Strength: ${strength.toUpperCase()}`;
+        label.style.color =
+          strength === "good"
+            ? "#10b981"
+            : strength === "medium"
+            ? "#f59e0b"
+            : "#ef4444";
+      }
+
+      document
+        .getElementById("registerPassword")
+        .addEventListener("input", (e) => {
+          const pw = e.target.value;
+          if (pw.length > 0) {
+            document.getElementById("regStrengthMeter").classList.add("active");
+            document.getElementById("regPasswordReqs").classList.add("active");
+            checkRequirements(pw, "reg");
+            const s = evaluateStrength(pw);
+            updateStrengthUI("regStrengthBars", "regStrengthLabel", s);
+            document.getElementById("registerSubmitBtn").disabled = !(
+              s === "medium" || s === "good"
+            );
+          } else {
+            document
+              .getElementById("regStrengthMeter")
+              .classList.remove("active");
+            document
+              .getElementById("regPasswordReqs")
+              .classList.remove("active");
+            document.getElementById("registerSubmitBtn").disabled = true;
+          }
+        });
+
+      document
+        .getElementById("trainingPasswordSetup")
+        .addEventListener("input", (e) => {
+          const pw = e.target.value;
+          if (pw.length > 0) {
+            document
+              .getElementById("trainStrengthMeter")
+              .classList.add("active");
+            document
+              .getElementById("trainPasswordReqs")
+              .classList.add("active");
+            checkRequirements(pw, "train");
+            const s = evaluateStrength(pw);
+            updateStrengthUI("trainStrengthBars", "trainStrengthLabel", s);
+          } else {
+            document
+              .getElementById("trainStrengthMeter")
+              .classList.remove("active");
+            document
+              .getElementById("trainPasswordReqs")
+              .classList.remove("active");
+          }
+        });
+
       document
         .getElementById("registerForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-
           const name = document.getElementById("registerName").value.trim();
           const username = document
             .getElementById("registerUsername")
             .value.trim();
           const email = document.getElementById("registerEmail").value.trim();
           const password = document.getElementById("registerPassword").value;
-
+          const s = evaluateStrength(password);
+          if (!(s === "medium" || s === "good")) {
+            showAlert("registerAlert", "❌ Password too weak", "error");
+            return;
+          }
           try {
-            const response = await fetch(`${API_URL}/register`, {
+            const res = await fetch(`${API_URL}/register`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ username, password, name, email }),
             });
-
-            const data = await response.json();
-
+            const data = await res.json();
             if (data.success) {
               showAlert(
                 "registerAlert",
@@ -1606,35 +1357,30 @@
               setTimeout(() => {
                 document.querySelector('[data-tab="login"]').click();
                 document.getElementById("loginUsername").value = username;
-              }, 1500);
+              }, 1200);
             } else {
               showAlert("registerAlert", `❌ ${data.error}`, "error");
             }
-          } catch (error) {
+          } catch {
             showAlert("registerAlert", "❌ Registration failed.", "error");
           }
         });
 
-      // Login
       document
         .getElementById("loginForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-
           const username = document
             .getElementById("loginUsername")
             .value.trim();
           const password = document.getElementById("loginPassword").value;
-
           try {
-            const response = await fetch(`${API_URL}/login`, {
+            const res = await fetch(`${API_URL}/login`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ username, password }),
             });
-
-            const data = await response.json();
-
+            const data = await res.json();
             if (data.success) {
               currentUser = username;
               document.getElementById("displayUsername").textContent = username;
@@ -1647,62 +1393,28 @@
             } else {
               showAlert("loginAlert", `❌ ${data.error}`, "error");
             }
-          } catch (error) {
+          } catch {
             showAlert("loginAlert", "❌ Login failed.", "error");
           }
         });
 
-      // Update security status
       function updateSecurityStatus(trained, totalSamples) {
         const status = document.getElementById("securityStatus");
         if (trained) {
-          status.innerHTML = `
-                    <div class="alert alert-success show">
-                        ✅ <strong>Biometric Authentication Active</strong><br>
-                        Trained with ${totalSamples} samples. Your account is secured.
-                    </div>
-                `;
+          status.innerHTML = `<div class="alert alert-success show">✅ <strong>Biometric Authentication Active</strong><br>Trained with ${totalSamples} samples.</div>`;
         } else {
-          status.innerHTML = `
-                    <div class="alert alert-info show">
-                        ⚠️ <strong>Biometric Authentication Not Trained</strong><br>
-                        Click "Train Biometric Model" to enable security.
-                    </div>
-                `;
+          status.innerHTML = `<div class="alert alert-info show">⚠️ <strong>Biometric Authentication Not Trained</strong><br>Click "Train Biometric Model" to enable security.</div>`;
         }
       }
 
-      // Train Model Button
-      document
-        .getElementById("trainModelBtn")
-        .addEventListener("click", async () => {
-          if (!currentUser) {
-            alert("Please login first.");
-            return;
-          }
-
-          try {
-            const response = await fetch(
-              `${API_URL}/get_training_status?username=${currentUser}`
-            );
-            const data = await response.json();
-
-            if (data.trained) {
-              requiredSamples = 5;
-              document.getElementById("requiredSamples").textContent =
-                requiredSamples;
-              document.getElementById("totalSamples").textContent =
-                requiredSamples;
-              document.getElementById("progressTotal").textContent =
-                requiredSamples;
-            }
-          } catch (error) {
-            console.log("Error checking status");
-          }
-
-          document.getElementById("trainingModal").classList.add("active");
-          resetTrainingModal();
-        });
+      document.getElementById("trainModelBtn").addEventListener("click", () => {
+        if (!currentUser) {
+          alert("Please login first.");
+          return;
+        }
+        document.getElementById("trainingModal").classList.add("active");
+        resetTrainingModal();
+      });
 
       function resetTrainingModal() {
         document.getElementById("trainingStep1").style.display = "block";
@@ -1711,6 +1423,10 @@
         document.getElementById("paragraph2Input").value = "";
         document.getElementById("trainingPasswordSetup").value = "";
         document.getElementById("trainingPasswordInput").value = "";
+        document
+          .getElementById("trainStrengthMeter")
+          .classList.remove("active");
+        document.getElementById("trainPasswordReqs").classList.remove("active");
         para1Events.length = 0;
         para2Events.length = 0;
         passwordTrainingEvents.length = 0;
@@ -1729,7 +1445,6 @@
           document.getElementById("trainingModal").classList.remove("active");
         });
 
-      // Paragraph 1 - Enter key
       document
         .getElementById("paragraph1Input")
         .addEventListener("keydown", (e) => {
@@ -1747,7 +1462,6 @@
           }
         });
 
-      // Paragraph 2 - Enter key
       document
         .getElementById("paragraph2Input")
         .addEventListener("keydown", (e) => {
@@ -1757,13 +1471,11 @@
           }
         });
 
-      // Submit Paragraphs
       document
         .getElementById("submitParagraphsBtn")
         .addEventListener("click", () => {
           const para1 = document.getElementById("paragraph1Input").value.trim();
           const para2 = document.getElementById("paragraph2Input").value.trim();
-
           if (para1 !== PARAGRAPH1 || para2 !== PARAGRAPH2) {
             showAlert(
               "trainingAlert",
@@ -1772,25 +1484,21 @@
             );
             return;
           }
-
           if (para1Events.length < 10 || para2Events.length < 10) {
             showAlert("trainingAlert", "❌ Please type completely", "error");
             return;
           }
-
           trainingData.paragraph1Events = [...para1Events];
           trainingData.paragraph2Events = [...para2Events];
-
           showAlert("trainingAlert", "✅ Paragraphs captured!", "success");
           setTimeout(() => {
             document.getElementById("trainingStep1").style.display = "none";
             document.getElementById("trainingStep2").style.display = "block";
             document.getElementById("trainingAlert").classList.remove("show");
             document.getElementById("trainingPasswordSetup").focus();
-          }, 1000);
+          }, 800);
         });
 
-      // Password input - Enter key
       document
         .getElementById("trainingPasswordInput")
         .addEventListener("keydown", (e) => {
@@ -1800,7 +1508,6 @@
           }
         });
 
-      // Capture Password Sample
       document
         .getElementById("capturePasswordSampleBtn")
         .addEventListener("click", () => {
@@ -1810,33 +1517,30 @@
           const typedPassword = document.getElementById(
             "trainingPasswordInput"
           ).value;
-
-          if (!password) {
-            showAlert("trainingAlert", "❌ Create password first", "error");
-            document.getElementById("trainingPasswordSetup").focus();
+          const strength = evaluateStrength(password);
+          if (strength === "weak") {
+            showAlert("trainingAlert", "❌ Password too weak", "error");
             return;
           }
-
+          if (!password) {
+            showAlert("trainingAlert", "❌ Create password first", "error");
+            return;
+          }
           if (typedPassword !== password) {
             showAlert("trainingAlert", "❌ Must match exactly", "error");
             return;
           }
-
           if (passwordTrainingEvents.length < 5) {
             showAlert("trainingAlert", "❌ Type complete password", "error");
             return;
           }
-
           trainingData.passwordSamples.push([...passwordTrainingEvents]);
           passwordSampleCount++;
-
           document.getElementById("currentSample").textContent =
             passwordSampleCount + 1;
           document.getElementById("trainingPasswordInput").value = "";
           passwordTrainingEvents.length = 0;
-
           updateProgressBar();
-
           if (passwordSampleCount >= requiredSamples) {
             document.getElementById("capturePasswordSampleBtn").style.display =
               "none";
@@ -1857,17 +1561,20 @@
         const progress = (passwordSampleCount / requiredSamples) * 100;
         document.getElementById("progressFill").style.width = progress + "%";
         document.getElementById("progressCount").textContent =
-          passwordSampleCount + "/";
+          passwordSampleCount + "/5";
       }
 
-      // Complete Training
       document
         .getElementById("completeTrainingBtn")
         .addEventListener("click", async () => {
           const password = document.getElementById(
             "trainingPasswordSetup"
           ).value;
-
+          const strength = evaluateStrength(password);
+          if (!(strength === "medium" || strength === "good")) {
+            showAlert("trainingAlert", "❌ Password too weak", "error");
+            return;
+          }
           try {
             const response = await fetch(`${API_URL}/train_biometric`, {
               method: "POST",
@@ -1880,87 +1587,61 @@
                 password_samples: trainingData.passwordSamples,
               }),
             });
-
             const data = await response.json();
-
             if (data.success) {
               document
                 .getElementById("trainingModal")
                 .classList.remove("active");
-              document.getElementById("trainedSamplesCount").textContent =
-                data.total_samples;
               document
                 .getElementById("trainingSuccessModal")
                 .classList.add("active");
+              updateSecurityStatus(true, data.total_samples);
             } else {
               showAlert("trainingAlert", `❌ ${data.error}`, "error");
             }
-          } catch (error) {
+          } catch {
             showAlert("trainingAlert", "❌ Training failed.", "error");
           }
         });
 
-      // Success Modal Actions
       document.getElementById("continueBtn").addEventListener("click", () => {
         document
           .getElementById("trainingSuccessModal")
           .classList.remove("active");
-        updateSecurityStatus(
-          true,
-          parseInt(document.getElementById("trainedSamplesCount").textContent)
-        );
       });
 
-      document
-        .getElementById("trainMoreBtn")
-        .addEventListener("click", async () => {
-          document
-            .getElementById("trainingSuccessModal")
-            .classList.remove("active");
+      document.getElementById("trainMoreBtn").addEventListener("click", () => {
+        document
+          .getElementById("trainingSuccessModal")
+          .classList.remove("active");
+        document.getElementById("trainingModal").classList.add("active");
+        resetTrainingModal();
+      });
 
-          try {
-            const response = await fetch(
-              `${API_URL}/get_training_status?username=${currentUser}`
-            );
-            const data = await response.json();
-
-            if (data.trained) {
-              requiredSamples = 5;
-              document.getElementById("requiredSamples").textContent =
-                requiredSamples;
-              document.getElementById("totalSamples").textContent =
-                requiredSamples;
-              document.getElementById("progressTotal").textContent =
-                requiredSamples;
-            }
-          } catch (error) {
-            console.log("Error");
-          }
-
-          document.getElementById("trainingModal").classList.add("active");
-          resetTrainingModal();
-        });
-
-      // Transaction Flow
       document.getElementById("transferBtn").addEventListener("click", () => {
+        if (!currentUser) {
+          alert("Please login first.");
+          return;
+        }
+        document.getElementById("transferTo").value =
+          "Aditya Andhalkar - Account ****1234";
+        document.getElementById("transferAmount").value = "₹500.00";
         document.getElementById("transactionModal").classList.add("active");
         document.getElementById("transactionPasswordInput").value = "";
         transactionEvents.length = 0;
-        setTimeout(
-          () => document.getElementById("transactionPasswordInput").focus(),
-          100
-        );
       });
 
       document.getElementById("payBillBtn").addEventListener("click", () => {
+        if (!currentUser) {
+          alert("Please login first.");
+          return;
+        }
         document.getElementById("transferTo").value =
           "Electric Company - Invoice #45821";
-        document.getElementById("transferAmount").value = "$245.80";
+        document.getElementById("transferAmount").value = "₹245.80";
         document.getElementById("transactionModal").classList.add("active");
-        setTimeout(
-          () => document.getElementById("transactionPasswordInput").focus(),
-          100
-        );
+        document.getElementById("transactionPasswordInput").value = "";
+        transactionEvents.length = 0;
       });
 
       document
@@ -1971,21 +1652,21 @@
             .classList.remove("active");
         });
 
-      // Transaction Form
       document
         .getElementById("transactionForm")
         .addEventListener("submit", async (e) => {
           e.preventDefault();
-
           const password = document.getElementById(
             "transactionPasswordInput"
           ).value;
-
           if (!password || transactionEvents.length < 5) {
             showAlert("transactionAlert", "❌ Type complete password", "error");
             return;
           }
-
+          const amountStr = document.getElementById("transferAmount").value;
+          const amountNum = parseFloat(
+            amountStr.replace("₹", "").replace(/,/g, "")
+          );
           try {
             const response = await fetch(`${API_URL}/verify_transaction`, {
               method: "POST",
@@ -1994,21 +1675,19 @@
                 username: currentUser,
                 password: password,
                 keystroke_events: transactionEvents,
-                amount: document.getElementById("transferAmount").value,
+                amount: amountStr,
                 recipient: document.getElementById("transferTo").value,
               }),
             });
-
             const data = await response.json();
-
             if (data.success && data.authorized) {
+              updateBalance(currentBalance - amountNum);
               currentTransaction = {
                 recipient: document.getElementById("transferTo").value,
-                amount: document.getElementById("transferAmount").value,
+                amount: amountStr,
                 transactionId: data.transaction_id,
                 dateTime: new Date().toLocaleString(),
               };
-
               document.getElementById("successRecipient").textContent =
                 currentTransaction.recipient;
               document.getElementById("successAmount").textContent =
@@ -2017,7 +1696,6 @@
                 currentTransaction.dateTime;
               document.getElementById("successTransactionId").textContent =
                 currentTransaction.transactionId;
-
               document
                 .getElementById("transactionModal")
                 .classList.remove("active");
@@ -2034,36 +1712,241 @@
                 "error"
               );
             }
-          } catch (error) {
+          } catch {
             showAlert("transactionAlert", "❌ Transaction failed.", "error");
           }
         });
 
-      // Success Screen Actions
+      function triggerSecurityAlarm(data) {
+        document.getElementById(
+          "alarmDeviation"
+        ).textContent = `${data.speed_deviation}% SLOWER`;
+        document.getElementById(
+          "alarmMessageText"
+        ).textContent = `Typing speed was ${data.speed_deviation}% slower than baseline. Transaction blocked.`;
+        document.getElementById("securityAlarm").classList.add("active");
+      }
+
+      document.getElementById("stopAlarmBtn").addEventListener("click", () => {
+        document.getElementById("securityAlarm").classList.remove("active");
+      });
+
       document.getElementById("shareBtn").addEventListener("click", () => {
         const shareText = `Transaction Successful!\n\nRecipient: ${currentTransaction.recipient}\nAmount: ${currentTransaction.amount}\nTransaction ID: ${currentTransaction.transactionId}\nDate: ${currentTransaction.dateTime}`;
-
         if (navigator.share) {
           navigator
-            .share({
-              title: "Transaction Receipt",
-              text: shareText,
-            })
-            .catch((err) => console.log("Share failed"));
+            .share({ title: "Transaction Receipt", text: shareText })
+            .catch(() => {});
         } else {
-          navigator.clipboard.writeText(shareText).then(() => {
-            alert("Receipt copied to clipboard!");
-          });
+          navigator.clipboard
+            .writeText(shareText)
+            .then(() => alert("Receipt copied to clipboard!"));
         }
       });
 
-      document.getElementById("goBackBtn").addEventListener("click", () => {
-        switchScreen("dashboardScreen");
+      document
+        .getElementById("goBackBtn")
+        .addEventListener("click", () => switchScreen("dashboardScreen"));
+
+      document.getElementById("depositBtn").addEventListener("click", () => {
+        if (!currentUser) {
+          alert("Please login first.");
+          return;
+        }
+        document.getElementById("depositModal").classList.add("active");
+        document.getElementById("depositAmount").value = "";
+        document.getElementById("depositPassword").value = "";
       });
 
-      // Logout
+      document
+        .getElementById("cancelDepositBtn")
+        .addEventListener("click", () => {
+          document.getElementById("depositModal").classList.remove("active");
+        });
+
+      document
+        .getElementById("depositForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const amount = document.getElementById("depositAmount").value;
+          const password = document.getElementById("depositPassword").value;
+          if (!amount || Number(amount) <= 0) {
+            showAlert("depositAlert", "❌ Enter a valid amount.", "error");
+            return;
+          }
+          if (!password) {
+            showAlert("depositAlert", "❌ Enter your login password.", "error");
+            return;
+          }
+          const amountNum = Number(amount);
+          const amountStr = `₹${amountNum.toFixed(2)}`;
+          try {
+            const res = await fetch(`${API_URL}/deposit`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                username: currentUser,
+                password,
+                amount: amountStr,
+              }),
+            });
+            const data = await res.json();
+            if (data.success) {
+              updateBalance(currentBalance + amountNum);
+              currentTransaction = {
+                recipient: "My SecureBank Account",
+                amount: amountStr,
+                transactionId: data.transaction_id,
+                dateTime: new Date().toLocaleString(),
+              };
+              document.getElementById("successRecipient").textContent =
+                currentTransaction.recipient;
+              document.getElementById("successAmount").textContent =
+                currentTransaction.amount;
+              document.getElementById("successDateTime").textContent =
+                currentTransaction.dateTime;
+              document.getElementById("successTransactionId").textContent =
+                currentTransaction.transactionId;
+              document
+                .getElementById("depositModal")
+                .classList.remove("active");
+              switchScreen("successScreen");
+            } else {
+              showAlert(
+                "depositAlert",
+                `❌ ${data.error || "Deposit failed"}`,
+                "error"
+              );
+            }
+          } catch {
+            showAlert("depositAlert", "❌ Deposit failed.", "error");
+          }
+        });
+
+      document
+        .getElementById("historyBtn")
+        .addEventListener("click", async () => {
+          if (!currentUser) {
+            alert("Please login first.");
+            return;
+          }
+          await loadHistory();
+          switchScreen("historyScreen");
+        });
+
+      document
+        .getElementById("backToDashboardBtn")
+        .addEventListener("click", () => switchScreen("dashboardScreen"));
+
+      async function loadHistory() {
+        const list = document.getElementById("historyList");
+        list.innerHTML = "Loading...";
+        try {
+          const res = await fetch(
+            `${API_URL}/transaction_history?username=${currentUser}`
+          );
+          const data = await res.json();
+          if (!data.success) {
+            list.innerHTML = `<div class="alert alert-error show">❌ ${
+              data.error || "Unable to load history"
+            }</div>`;
+            return;
+          }
+          if (!data.transactions.length) {
+            list.innerHTML = `<div class="alert alert-info show">ℹ️ No transactions yet.</div>`;
+            return;
+          }
+          list.innerHTML = "";
+          data.transactions.forEach((tx) =>
+            list.appendChild(renderHistoryItem(tx))
+          );
+        } catch {
+          list.innerHTML = `<div class="alert alert-error show">❌ Unable to load history.</div>`;
+        }
+      }
+
+      function renderHistoryItem(tx) {
+        const div = document.createElement("div");
+        const statusClass = tx.status === "completed" ? "completed" : "blocked";
+        div.className = `history-item ${statusClass}`;
+        const title =
+          tx.type === "deposit"
+            ? "Deposit"
+            : tx.type === "transfer"
+            ? "Transfer"
+            : "Payment";
+        const recipient =
+          tx.type === "deposit" ? "My SecureBank Account" : tx.recipient;
+        const details = tx.details || {};
+        const deviationText =
+          tx.impostor && details.speed_deviation != null
+            ? ` • Deviation: ${details.speed_deviation}%`
+            : "";
+        div.innerHTML = `
+                <div class="history-header">
+                    <div style="font-weight:700;color:#1e293b">${title} • ${recipient}</div>
+                    <span class="badge ${statusClass}">${tx.status.toUpperCase()}</span>
+                </div>
+                <div class="history-meta">
+                    <span>Amount: <strong>${tx.amount}</strong></span>
+                    <span>Time: <strong>${new Date(
+                      tx.timestamp
+                    ).toLocaleString()}</strong></span>
+                    <span>ID: <strong>${tx.id}</strong></span>
+                    ${
+                      tx.impostor
+                        ? `<span style="color:#991b1b;">Impostor Detected${deviationText}</span>`
+                        : ""
+                    }
+                </div>
+                ${
+                  tx.impostor
+                    ? `<div style="margin-top:8px;color:#7f1d1d;font-size:13px;">Reason: ${
+                        details.reason || "Authentication anomaly"
+                      }</div>`
+                    : ""
+                }
+                <div class="history-actions">
+                    ${
+                      tx.status === "completed"
+                        ? `<button class="btn btn-primary" style="width:auto" data-action="share">📤 Share</button>`
+                        : `<button class="btn btn-primary" style="width:auto" data-action="retrain">🔁 Retrain Biometrics</button>`
+                    }
+                </div>
+            `;
+        const shareBtn = div.querySelector('[data-action="share"]');
+        if (shareBtn) {
+          shareBtn.addEventListener("click", () => {
+            const shareText = `${title} Successful!\n\nRecipient: ${recipient}\nAmount: ${
+              tx.amount
+            }\nTransaction ID: ${tx.id}\nDate: ${new Date(
+              tx.timestamp
+            ).toLocaleString()}`;
+            if (navigator.share) {
+              navigator
+                .share({ title: "Transaction Receipt", text: shareText })
+                .catch(() => {});
+            } else {
+              navigator.clipboard
+                .writeText(shareText)
+                .then(() => alert("Receipt copied!"));
+            }
+          });
+        }
+        const retrainBtn = div.querySelector('[data-action="retrain"]');
+        if (retrainBtn) {
+          retrainBtn.addEventListener("click", () => {
+            switchScreen("dashboardScreen");
+            document.getElementById("trainModelBtn").click();
+          });
+        }
+        return div;
+      }
+
       document.getElementById("logoutBtn").addEventListener("click", () => {
         currentUser = null;
+        currentBalance = 24582.5;
+        updateBalance(currentBalance);
         document.getElementById("userInfo").classList.remove("active");
         switchScreen("authScreen");
       });
@@ -2074,15 +1957,6 @@
           .forEach((s) => s.classList.remove("active"));
         document.getElementById(screenId).classList.add("active");
       }
-
-      // Other actions
-      document.getElementById("depositBtn").addEventListener("click", () => {
-        alert("💰 Deposit feature coming soon!");
-      });
-
-      document.getElementById("historyBtn").addEventListener("click", () => {
-        alert("📊 Transaction history coming soon!");
-      });
     </script>
   </body>
 </html>
