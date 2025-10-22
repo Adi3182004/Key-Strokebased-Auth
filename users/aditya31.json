@@ -78,6 +78,21 @@
         "baseline_speed": 2.57,
         "auth_speed": 1.54
       }
+    },
+    {
+      "id": "TXN544C2659CE4F",
+      "type": "transfer",
+      "recipient": "Aditya Andhalkar - Account ****1234",
+      "amount": "\u20b9500.00",
+      "timestamp": "2025-10-22T07:17:56.423263",
+      "status": "blocked",
+      "impostor": true,
+      "details": {
+        "reason": "Typing speed too slow",
+        "speed_deviation": 68.5,
+        "auth_speed": 0.81,
+        "baseline_speed": 2.57
+      }
     }
   ],
   "created_at": "2025-10-21T11:49:55.530891"

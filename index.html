@@ -597,6 +597,31 @@
         align-items: center;
         justify-content: center;
       }
+      .security-alarm::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(
+          90deg,
+          #dc2626 0%,
+          #dc2626 50%,
+          transparent 50%,
+          transparent 100%
+        );
+        background-size: 40px 4px;
+        animation: barberPole 1s linear infinite;
+      }
+      @keyframes barberPole {
+        0% {
+          background-position: 0 0;
+        }
+        100% {
+          background-position: 40px 0;
+        }
+      }
       .alarm-container {
         width: 100%;
         max-width: 900px;
@@ -612,27 +637,118 @@
         padding: 24px 40px;
         border-bottom: 3px solid #991b1b;
       }
+      .alarm-status-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 16px;
+      }
+      .alarm-badge {
+        background: #ffffff;
+        color: #dc2626;
+        padding: 6px 16px;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        border-radius: 2px;
+      }
+      .alarm-live {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .alarm-live-dot {
+        width: 8px;
+        height: 8px;
+        background: #ffffff;
+        border-radius: 50%;
+        animation: pulse 1s ease-in-out infinite;
+      }
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.3;
+        }
+      }
+      .alarm-title-section {
+        text-align: left;
+      }
       .alarm-title {
         font-size: 32px;
         font-weight: 800;
         color: #ffffff;
         margin-bottom: 8px;
         text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .alarm-subtitle {
+        font-size: 16px;
+        color: rgba(255, 255, 255, 0.95);
+        font-weight: 500;
       }
       .alarm-body {
         padding: 40px;
+      }
+      .alarm-threat-level {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        padding: 20px;
+        background: #fef2f2;
+        border-left: 4px solid #dc2626;
+        margin-bottom: 32px;
+      }
+      .threat-icon {
+        width: 48px;
+        height: 48px;
+        background: #dc2626;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-size: 24px;
+        flex-shrink: 0;
+      }
+      .threat-content h3 {
+        font-size: 14px;
+        color: #991b1b;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 4px;
+      }
+      .threat-content p {
+        font-size: 13px;
+        color: #7f1d1d;
+        margin: 0;
+      }
+      .alarm-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-bottom: 32px;
       }
       .alarm-info-box {
         background: #f8fafc;
         padding: 20px;
         border: 1px solid #e2e8f0;
-        margin-bottom: 16px;
       }
       .alarm-info-label {
         font-size: 11px;
         color: #64748b;
         font-weight: 600;
         text-transform: uppercase;
+        letter-spacing: 1px;
         margin-bottom: 8px;
       }
       .alarm-info-value {
@@ -641,53 +757,183 @@
         font-weight: 700;
         font-family: "Courier New", monospace;
       }
+      .alarm-description {
+        background: #fff7ed;
+        border: 1px solid #fed7aa;
+        padding: 24px;
+        margin-bottom: 32px;
+      }
+      .alarm-description h4 {
+        font-size: 13px;
+        color: #92400e;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 12px;
+      }
+      .alarm-description p {
+        font-size: 14px;
+        color: #78350f;
+        line-height: 1.6;
+        margin: 0;
+      }
+      .alarm-actions {
+        display: flex;
+        gap: 16px;
+      }
       .alarm-btn {
+        flex: 1;
         padding: 16px 24px;
         border: none;
         font-size: 14px;
         font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
         cursor: pointer;
-        margin: 8px;
-        border-radius: 6px;
+        transition: all 0.2s;
       }
       .alarm-btn-primary {
         background: #dc2626;
         color: white;
       }
+      .alarm-btn-primary:hover {
+        background: #991b1b;
+      }
+      .alarm-btn-secondary {
+        background: #f1f5f9;
+        color: #475569;
+        border: 2px solid #cbd5e1;
+      }
+      .alarm-btn-secondary:hover {
+        background: #e2e8f0;
+      }
+      .alarm-footer {
+        background: #f8fafc;
+        padding: 16px 40px;
+        border-top: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .alarm-timestamp,
+      .alarm-id {
+        font-size: 12px;
+        color: #64748b;
+        font-family: "Courier New", monospace;
+        font-weight: 600;
+      }
+      @media (max-width: 768px) {
+        .alarm-panel {
+          border: 2px solid #dc2626;
+        }
+        .alarm-header {
+          padding: 20px 24px;
+        }
+        .alarm-body {
+          padding: 24px;
+        }
+        .alarm-title {
+          font-size: 24px;
+        }
+        .alarm-grid {
+          grid-template-columns: 1fr;
+        }
+        .alarm-actions {
+          flex-direction: column;
+        }
+        .success-title {
+          font-size: 28px;
+        }
+        .action-buttons {
+          grid-template-columns: 1fr;
+        }
+      }
     </style>
   </head>
   <body>
+    <!-- Security Alarm with Sound -->
     <div id="securityAlarm" class="security-alarm">
       <div class="alarm-container">
         <div class="alarm-panel">
           <div class="alarm-header">
-            <h1 class="alarm-title">⚠️ Unauthorized Access Detected</h1>
-          </div>
-          <div class="alarm-body">
-            <div class="alarm-info-box">
-              <div class="alarm-info-label">Speed Deviation</div>
-              <div
-                class="alarm-info-value"
-                id="alarmDeviation"
-                style="color: #dc2626"
-              >
-                -
+            <div class="alarm-status-bar">
+              <div class="alarm-badge">CRITICAL SECURITY ALERT</div>
+              <div class="alarm-live">
+                <div class="alarm-live-dot"></div>
+                LIVE INCIDENT
               </div>
             </div>
-            <div class="alarm-info-box">
-              <div class="alarm-info-label">Incident Report</div>
-              <p id="alarmMessageText" style="font-size: 14px; color: #78350f">
-                Typing pattern anomaly detected
+            <div class="alarm-title-section">
+              <h1 class="alarm-title">Unauthorized Access Detected</h1>
+              <p class="alarm-subtitle">
+                Biometric Authentication Failure - Account Access Blocked
               </p>
             </div>
-            <button class="alarm-btn alarm-btn-primary" id="stopAlarmBtn">
-              Acknowledge & Dismiss
-            </button>
+          </div>
+          <div class="alarm-body">
+            <div class="alarm-threat-level">
+              <div class="threat-icon">⚠</div>
+              <div class="threat-content">
+                <h3>Threat Level: High</h3>
+                <p>
+                  Keystroke pattern analysis indicates potential unauthorized
+                  access attempt
+                </p>
+              </div>
+            </div>
+            <div class="alarm-grid">
+              <div class="alarm-info-box">
+                <div class="alarm-info-label">Detection Method</div>
+                <div class="alarm-info-value">Keystroke Biometrics</div>
+              </div>
+              <div class="alarm-info-box">
+                <div class="alarm-info-label">Anomaly Type</div>
+                <div class="alarm-info-value">SLOW TYPING</div>
+              </div>
+              <div class="alarm-info-box">
+                <div class="alarm-info-label">Speed Deviation</div>
+                <div
+                  class="alarm-info-value"
+                  id="alarmDeviation"
+                  style="color: #dc2626"
+                >
+                  -
+                </div>
+              </div>
+              <div class="alarm-info-box">
+                <div class="alarm-info-label">Status</div>
+                <div class="alarm-info-value" style="color: #dc2626">
+                  BLOCKED
+                </div>
+              </div>
+            </div>
+            <div class="alarm-description">
+              <h4>Incident Report</h4>
+              <p id="alarmMessageText">
+                An unauthorized access attempt has been detected and blocked.
+              </p>
+            </div>
+            <div class="alarm-actions">
+              <button class="alarm-btn alarm-btn-primary" id="stopAlarmBtn">
+                Acknowledge & Dismiss
+              </button>
+              <button
+                class="alarm-btn alarm-btn-secondary"
+                onclick="window.location.reload()"
+              >
+                Return to Login
+              </button>
+            </div>
+          </div>
+          <div class="alarm-footer">
+            <div class="alarm-timestamp" id="alarmTimestamp">-</div>
+            <div class="alarm-id" id="alarmId">-</div>
           </div>
         </div>
       </div>
     </div>
 
+    <!-- Header -->
     <div class="top-header">
       <div class="logo">
         <div class="logo-icon">🏦</div>
@@ -705,6 +951,7 @@
     </div>
 
     <div class="container">
+      <!-- Auth Screen -->
       <div id="authScreen" class="screen active">
         <div class="auth-container card">
           <div class="auth-tabs">
@@ -821,6 +1068,7 @@
         </div>
       </div>
 
+      <!-- Dashboard Screen -->
       <div id="dashboardScreen" class="screen">
         <div class="balance-card">
           <div class="balance-label">Available Balance</div>
@@ -859,6 +1107,7 @@
         </div>
       </div>
 
+      <!-- Success Screen -->
       <div id="successScreen" class="screen">
         <div class="card">
           <div class="success-screen">
@@ -904,6 +1153,7 @@
         </div>
       </div>
 
+      <!-- History Screen -->
       <div id="historyScreen" class="screen">
         <div class="card">
           <div
@@ -928,6 +1178,7 @@
       </div>
     </div>
 
+    <!-- Training Modal -->
     <div id="trainingModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">⚡ Biometric Training</div>
@@ -949,6 +1200,7 @@
               id="paragraph1Input"
               placeholder="Type the paragraph above..."
             ></textarea>
+            <div class="hint">✅ Press Enter to submit</div>
           </div>
           <div class="paragraph-box">
             Security and privacy are fundamental rights in our digital age and
@@ -960,6 +1212,7 @@
               id="paragraph2Input"
               placeholder="Type the paragraph above..."
             ></textarea>
+            <div class="hint">✅ Press Enter to submit</div>
           </div>
           <button class="btn btn-primary" id="submitParagraphsBtn">
             Next: Set Password
@@ -1021,6 +1274,7 @@
               id="trainingPasswordInput"
               placeholder="Type your password here..."
             />
+            <div class="hint">🔒 Press Enter to capture</div>
           </div>
           <div class="progress-container">
             <div class="progress-header">
@@ -1049,6 +1303,7 @@
       </div>
     </div>
 
+    <!-- Training Success Modal -->
     <div id="trainingSuccessModal" class="modal">
       <div class="modal-content" style="text-align: center">
         <div style="font-size: 64px; margin-bottom: 20px">🎉</div>
@@ -1056,13 +1311,15 @@
           Training Complete!
         </h2>
         <p style="margin-bottom: 24px">
-          Your biometric model has been successfully trained.
+          Your biometric model has been successfully trained with
+          <strong id="trainedSamplesCount">5</strong> samples.
         </p>
         <button class="btn btn-success" id="continueBtn">Continue</button>
         <button class="btn btn-primary" id="trainMoreBtn">Train More</button>
       </div>
     </div>
 
+    <!-- Transaction Modal -->
     <div id="transactionModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">💸 Authorize Transaction</div>
@@ -1092,6 +1349,7 @@
               id="transactionPasswordInput"
               placeholder="Type your password..."
             />
+            <div class="hint">⌨️ Type naturally - biometrics active</div>
           </div>
           <button type="submit" class="btn btn-success">
             Authorize & Transfer
@@ -1103,6 +1361,7 @@
       </div>
     </div>
 
+    <!-- Deposit Modal -->
     <div id="depositModal" class="modal">
       <div class="modal-content">
         <div class="modal-header">💰 Deposit Funds</div>
@@ -1154,6 +1413,112 @@
         requiredSamples = 5,
         currentTransaction = {};
 
+      // Alarm System Variables
+      let alarmInterval = null,
+        speechInterval = null,
+        audioContext = null,
+        bellOscillator = null,
+        bellGain = null;
+
+      // Initialize Web Audio for Bell Sound
+      function initializeBellSound() {
+        try {
+          audioContext = new (window.AudioContext ||
+            window.webkitAudioContext)();
+          return true;
+        } catch (e) {
+          console.log("Web Audio API not supported");
+          return false;
+        }
+      }
+
+      // Create Professional Bell Sound
+      function playBellSound() {
+        if (!audioContext && !initializeBellSound()) return;
+        stopBellSound();
+        bellOscillator = audioContext.createOscillator();
+        bellGain = audioContext.createGain();
+        bellOscillator.frequency.value = 659.25;
+        bellOscillator.type = "sine";
+        bellOscillator.connect(bellGain);
+        bellGain.connect(audioContext.destination);
+        const now = audioContext.currentTime;
+        bellGain.gain.setValueAtTime(0.3, now);
+        bellGain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+        bellOscillator.start(now);
+        bellOscillator.stop(now + 0.5);
+        alarmInterval = setTimeout(playBellSound, 600);
+      }
+
+      function stopBellSound() {
+        if (alarmInterval) {
+          clearTimeout(alarmInterval);
+          alarmInterval = null;
+        }
+        if (bellOscillator) {
+          try {
+            bellOscillator.stop();
+          } catch (e) {}
+          bellOscillator = null;
+        }
+      }
+
+      // Voice Alert System
+      function playVoiceAlert() {
+        if (!window.speechSynthesis) return;
+        function speak() {
+          window.speechSynthesis.cancel();
+          const utterance = new SpeechSynthesisUtterance(
+            "Alert! Security breach detected! Unauthorized access attempt identified!"
+          );
+          utterance.rate = 1.2;
+          utterance.pitch = 1.5;
+          utterance.volume = 1.0;
+          utterance.lang = "en-US";
+          window.speechSynthesis.speak(utterance);
+        }
+        speak();
+        speechInterval = setInterval(speak, 6000);
+      }
+
+      function stopVoiceAlert() {
+        if (speechInterval) {
+          clearInterval(speechInterval);
+          speechInterval = null;
+        }
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
+      }
+
+      // Trigger Security Alarm
+      function triggerSecurityAlarm(data) {
+        document.getElementById(
+          "alarmDeviation"
+        ).textContent = `${data.speed_deviation}% SLOWER`;
+        document.getElementById(
+          "alarmMessageText"
+        ).innerHTML = `Typing speed was ${data.speed_deviation}% slower than baseline (Current: ${data.auth_speed} cps | Expected: ${data.training_speed} cps). Transaction blocked.`;
+        const now = new Date();
+        document.getElementById(
+          "alarmTimestamp"
+        ).textContent = `${now.toLocaleDateString()} ${now.toLocaleTimeString()}`;
+        document.getElementById(
+          "alarmId"
+        ).textContent = `INCIDENT-${Math.random()
+          .toString(36)
+          .substr(2, 9)
+          .toUpperCase()}`;
+        document.getElementById("securityAlarm").classList.add("active");
+        playBellSound();
+        playVoiceAlert();
+      }
+
+      document.getElementById("stopAlarmBtn").addEventListener("click", () => {
+        document.getElementById("securityAlarm").classList.remove("active");
+        stopBellSound();
+        stopVoiceAlert();
+      });
+
+      // Keystroke capture
       function captureKeystrokes(elementId) {
         const element = document.getElementById(elementId);
         let events = [];
@@ -1180,6 +1545,7 @@
       const passwordTrainingEvents = captureKeystrokes("trainingPasswordInput");
       const transactionEvents = captureKeystrokes("transactionPasswordInput");
 
+      // Balance
       function updateBalance(newBalance) {
         currentBalance = newBalance;
         document.getElementById(
@@ -1190,6 +1556,7 @@
         })}`;
       }
 
+      // Tabs
       document.querySelectorAll(".tab-btn").forEach((btn) => {
         btn.addEventListener("click", () => {
           const tab = btn.dataset.tab;
@@ -1204,6 +1571,7 @@
         });
       });
 
+      // Alerts
       function showAlert(elementId, message, type) {
         const alert = document.getElementById(elementId);
         alert.className = `alert alert-${type} show`;
@@ -1211,6 +1579,7 @@
         setTimeout(() => alert.classList.remove("show"), 5000);
       }
 
+      // Password Strength
       function checkRequirements(pw, prefix) {
         const length = pw.length >= 8,
           upper = /[A-Z]/.test(pw),
@@ -1278,6 +1647,7 @@
             : "#ef4444";
       }
 
+      // Register password strength
       document
         .getElementById("registerPassword")
         .addEventListener("input", (e) => {
@@ -1302,6 +1672,7 @@
           }
         });
 
+      // Training password strength
       document
         .getElementById("trainingPasswordSetup")
         .addEventListener("input", (e) => {
@@ -1326,6 +1697,7 @@
           }
         });
 
+      // Register
       document
         .getElementById("registerForm")
         .addEventListener("submit", async (e) => {
@@ -1366,6 +1738,7 @@
           }
         });
 
+      // Login
       document
         .getElementById("loginForm")
         .addEventListener("submit", async (e) => {
@@ -1592,6 +1965,8 @@
               document
                 .getElementById("trainingModal")
                 .classList.remove("active");
+              document.getElementById("trainedSamplesCount").textContent =
+                data.total_samples;
               document
                 .getElementById("trainingSuccessModal")
                 .classList.add("active");
@@ -1716,20 +2091,6 @@
             showAlert("transactionAlert", "❌ Transaction failed.", "error");
           }
         });
-
-      function triggerSecurityAlarm(data) {
-        document.getElementById(
-          "alarmDeviation"
-        ).textContent = `${data.speed_deviation}% SLOWER`;
-        document.getElementById(
-          "alarmMessageText"
-        ).textContent = `Typing speed was ${data.speed_deviation}% slower than baseline. Transaction blocked.`;
-        document.getElementById("securityAlarm").classList.add("active");
-      }
-
-      document.getElementById("stopAlarmBtn").addEventListener("click", () => {
-        document.getElementById("securityAlarm").classList.remove("active");
-      });
 
       document.getElementById("shareBtn").addEventListener("click", () => {
         const shareText = `Transaction Successful!\n\nRecipient: ${currentTransaction.recipient}\nAmount: ${currentTransaction.amount}\nTransaction ID: ${currentTransaction.transactionId}\nDate: ${currentTransaction.dateTime}`;
