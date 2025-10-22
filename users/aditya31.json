@@ -1,0 +1,84 @@
+{
+  "username": "aditya31",
+  "login_password_hash": "6c67d1b5df0de41dbdb7e72156c333ace8c9718ee222d89dedf27c8572d84c3c",
+  "transaction_password_hash": "6c67d1b5df0de41dbdb7e72156c333ace8c9718ee222d89dedf27c8572d84c3c",
+  "name": "Aditya",
+  "email": "adi31082004@gmail.com",
+  "biometric_trained": true,
+  "total_samples": 8,
+  "transactions": [
+    {
+      "id": "TXN273648D9C319",
+      "type": "deposit",
+      "recipient": "My SecureBank Account",
+      "amount": "\u20b9400.00",
+      "timestamp": "2025-10-21T11:50:30.342189",
+      "status": "completed",
+      "impostor": false,
+      "details": {
+        "method": "login-password"
+      }
+    },
+    {
+      "id": "TXNF724883622EA",
+      "type": "transfer",
+      "recipient": "Aditya Andhalkar - Account ****1234",
+      "amount": "\u20b9500.00",
+      "timestamp": "2025-10-21T11:53:12.608823",
+      "status": "completed",
+      "impostor": false,
+      "details": {
+        "speed_ratio": 0.964,
+        "speed_deviation": 3.6,
+        "baseline_speed": 2.57,
+        "auth_speed": 2.47
+      }
+    },
+    {
+      "id": "TXN85DD86239C89",
+      "type": "transfer",
+      "recipient": "Aditya Andhalkar - Account ****1234",
+      "amount": "\u20b9500.00",
+      "timestamp": "2025-10-21T11:53:26.780249",
+      "status": "completed",
+      "impostor": false,
+      "details": {
+        "speed_ratio": 0.659,
+        "speed_deviation": 34.1,
+        "baseline_speed": 2.57,
+        "auth_speed": 1.69
+      }
+    },
+    {
+      "id": "TXNB54EB7C9C569",
+      "type": "transfer",
+      "recipient": "Aditya Andhalkar - Account ****1234",
+      "amount": "\u20b9500.00",
+      "timestamp": "2025-10-21T11:53:45.209107",
+      "status": "completed",
+      "impostor": false,
+      "details": {
+        "speed_ratio": 0.577,
+        "speed_deviation": 42.3,
+        "baseline_speed": 2.57,
+        "auth_speed": 1.48
+      }
+    },
+    {
+      "id": "TXN152A7581726C",
+      "type": "transfer",
+      "recipient": "Aditya Andhalkar - Account ****1234",
+      "amount": "\u20b9500.00",
+      "timestamp": "2025-10-21T11:54:34.432047",
+      "status": "completed",
+      "impostor": false,
+      "details": {
+        "speed_ratio": 0.602,
+        "speed_deviation": 39.8,
+        "baseline_speed": 2.57,
+        "auth_speed": 1.54
+      }
+    }
+  ],
+  "created_at": "2025-10-21T11:49:55.530891"
+}
